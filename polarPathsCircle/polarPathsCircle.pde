@@ -2,6 +2,8 @@
 // circle and the little circle that travels around its perimeter
 int radius = 20;
 float diameter = 2*radius;
+float xCenter;
+float yCenter;
 float xPos;
 float yPos;
 float theta = 0;
@@ -15,6 +17,8 @@ void setup()
   
   // put the big circle in the center. We will draw a small, red circle that travels
   // around its perimeter.
+  xCenter = width/2;
+  yCenter = height/2;
 }
 
 void draw()
@@ -25,10 +29,10 @@ void draw()
   // its using the idea that any point on a circle, centered at the origin
   // is of the form: (radius * cos(angle), radius * sin(angle))
   // read more about that here: https://en.wikipedia.org/wiki/Polar_coordinate_system 
-  translate(width/2,height/2);
   theta += increment;
-  xPos = radius * cos(theta);
-  yPos = radius * sin(theta);
+  xPos = radius * cos(theta)+ xCenter;
+  yPos = yCenter - radius * sin(theta);
+  println("xPos ",xPos, " yPos ", yPos, " xCenter ",xCenter, " yCenter ",yCenter);
   fill(255,0,0);
   ellipse(xPos,yPos,diameter/4, diameter/4);
 
