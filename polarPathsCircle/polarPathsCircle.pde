@@ -1,5 +1,3 @@
-// these are the values I'm using to locate the center of the 
-// circle and the little circle that travels around its perimeter
 int radius = 20;
 float diameter = 2*radius;
 float xPos;
@@ -17,15 +15,12 @@ void setup()
 {
   size(350, 350);
   background(255);
-  frameRate(60);
+  frameRate(120);
  
 }
 
 void draw()
 {
-  //background(255);
-
-
   r = 140*sin(-a*theta);
  
   translate(width/2, height/2);
@@ -43,6 +38,5 @@ void mousePressed()
 {
   background(255);
    a += .2;
-   if(a==1)
-   { a += .2; }  
+   if(a==1) a += .2;   
 }
