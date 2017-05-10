@@ -37,14 +37,14 @@ void setup()
   size(350, 350);
   background(255);
   frameRate(120);
-
+  c = pastels[(int)random(0,15)];
 
 }
 
 void draw()
 {
   
-  c = pastels[(int)random(0,15)];
+ 
 
 
   r = 140*sin(-a*theta);
@@ -62,6 +62,7 @@ void draw()
 
 void mousePressed()
 {
+  c = pastels[(int)random(0,15)];
   background(255);
    a += .2;
    if(a==1) a += .2;   
