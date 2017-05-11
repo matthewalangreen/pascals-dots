@@ -11,7 +11,7 @@ int function = 1;
 float a = 0.6;
 
 color[] pastels = {
-  color(246, 235, 170), 
+ // color(246, 235, 170), 
   color(194, 86, 119), 
   color(199, 122, 159), 
   color(178, 116, 158), 
@@ -42,13 +42,14 @@ void setup()
 
 void draw()
 {
+ // background(colorJam.lerpedColor(0.01));
   r = 140*sin(-a*theta);
 
   translate(width/2, height/2);
   theta += increment;
   xPos = r * cos(theta);
   yPos = r * sin(theta);
-  fill(colorJam.lerpedColor(0.01)); // this mixes the colors.
+  fill(colorJam.lerpedColor(0.05)); // this mixes the colors.
   noStroke();
   ellipse(xPos, yPos, 6, 6);
   point(xPos, yPos);
@@ -68,27 +69,48 @@ class ColorMixer
   int index;
   float x;
   float lerpAmount;
+  boolean countingUp;
   
   // constructor 
   ColorMixer(color[] _colors) {
     pastels = _colors;
     index = 0;
     x = 0;
-    lerpAmount = 0.005;
+    lerpAmount = 0.001;
+    countingUp = true;
     }
   
   // methods
+  color twoColorMix(float amt) {
+     x = 0;
+     x += amt;
+    return lerpColor(pastels[0],pastels[1],abs(sin(x)));
+  }
+  
   color lerpedColor(float amt) {
     color c1, c2;
     
     if(x > PI/2) {
      x = 0;
-     index++;
-       if(index % 14 == 0) { // fix this... when it resets the counter it makes the mix yucky...
-         index = 0; 
-       }
+     
+     if(countingUp && index < 14) {
+       index++;
+     }
+     
+     if(index == 14) { 
+        countingUp = false;
+      }
+      
+      if(index > 0 && countingUp == false) {
+         index--; 
+      }
+      
+      if(index <= 0) {
+        countingUp = true;
+      }
+       
     }
-   
+   println("Index: "+index);
     x += amt;
     c1 = pastels[index];
     c2 = pastels[index+1];
