@@ -7,7 +7,7 @@ class ColorMixer
   color[] palette;
   
   // constructor 
-  ColorMixer(color[] _colors) {
+  ColorMixer(color[] _colors) { 
    palette = _colors;
    x = 0;
    limit = (5*PI)/12;

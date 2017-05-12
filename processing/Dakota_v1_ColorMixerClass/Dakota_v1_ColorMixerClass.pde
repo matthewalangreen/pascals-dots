@@ -1,18 +1,17 @@
-int radius = 20;
+int radius = 200;
 float diameter = 2*radius;
 float xPos;
 float yPos;
 float theta = 0;
-int dotController = 300; // 20, 100
+float dotController = 1000;
 float increment = PI/dotController;
 float r;
 color blue = #42548d;
 int function = 1;
-float a = 0.6;
-color temp;
+float a = 3501;
 
 color[] pastels = {
- 
+  color(246, 235, 170), 
   color(194, 86, 119), 
   color(199, 122, 159), 
   color(178, 116, 158), 
@@ -31,46 +30,69 @@ color[] pastels = {
 };
 
 // This is an object of my ColorMixer class (see Class definition at bottom for details). 
-ColorMixer myMixer = new ColorMixer(pastels);  
+ColorMixer colorJam = new ColorMixer(pastels);  
 
 
 void setup()
 {
-  size(350, 350);
+  size(500, 500);
   background(255);
-  frameRate(800); // 120, 500, 800, 1000
+  frameRate(1000);
 }
-
-float sizeChanger = 0.001;
-float xx = 1;
 
 void draw()
 {
- //background(myMixer.mixColors(0.1));
- xx += sizeChanger;
- if(xx >= 8) {
-   sizeChanger = sizeChanger*-1;
- }
- if(xx <= 1) {
-   sizeChanger = sizeChanger*-1;
- }
- if(xx < 0) {xx = 0;};
   r = 140*sin(-a*theta);
 
   translate(width/2, height/2);
   theta += increment;
   xPos = r * cos(theta);
   yPos = r * sin(theta);
-  fill(myMixer.mixColors(0.1)); // this mixes the colors.
+  fill(colorJam.lerpedColor(0.01)); // this mixes the colors.
   noStroke();
-  ellipse(xPos, yPos, xx, xx);
+  ellipse(xPos, yPos, 2, 2);
   point(xPos, yPos);
 }
 
 void mousePressed()
 {
-  xx = 1;
   background(255);
   a += .2;
   if (a==1) a += .2;
+}
+
+class ColorMixer
+{
+  // data  
+  color[] pastels; 
+  int index;
+  float x;
+  float lerpAmount;
+  
+  // constructor 
+  ColorMixer(color[] _colors) {
+    pastels = _colors;
+    index = 0;
+    x = 0;
+    lerpAmount = 0.005;
+    }
+  
+  // methods
+  color lerpedColor(float amt) {
+    color c1, c2;
+    
+    if(x > PI/2) {
+     x = 0;
+     index++;
+       if(index % 14 == 0) { // fix this... when it resets the counter it makes the mix yucky...
+         index = 0; 
+       }
+    }
+   
+    x += amt;
+    c1 = pastels[index];
+    c2 = pastels[index+1];
+    return lerpColor(c1,c2,abs(sin(x)));
+  }
+
 }
