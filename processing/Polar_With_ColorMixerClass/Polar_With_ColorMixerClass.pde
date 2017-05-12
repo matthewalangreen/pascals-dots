@@ -8,7 +8,7 @@ float increment = PI/dotController;
 float r;
 color blue = #42548d;
 int function = 1;
-float a = 0.6;
+float a = 0.8;
 color temp;
 
 color[] pastels = {
@@ -48,7 +48,7 @@ void draw()
 {
  //background(myMixer.mixColors(0.1));
  xx += sizeChanger;
- if(xx >= 8) {
+ if(xx >= 6) {
    sizeChanger = sizeChanger*-1;
  }
  if(xx <= 1) {
