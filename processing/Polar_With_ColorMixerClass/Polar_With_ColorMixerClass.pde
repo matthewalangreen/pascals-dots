@@ -1,3 +1,4 @@
+
 int radius = 20;
 float diameter = 2*radius;
 float xPos;
@@ -8,7 +9,7 @@ float increment = PI/dotController;
 float r;
 color blue = #42548d;
 int function = 1;
-float a = 0.8;
+float a = 200.2;
 color temp;
 
 color[] pastels = {
@@ -38,7 +39,7 @@ void setup()
 {
   size(350, 350);
   background(255);
-  frameRate(800); // 120, 500, 800, 1000
+  frameRate(1000); // 120, 500, 800, 1000
 }
 
 float sizeChanger = 0.001;
@@ -46,6 +47,7 @@ float xx = 1;
 
 void draw()
 {
+  /*
  //background(myMixer.mixColors(0.1));
  xx += sizeChanger;
  if(xx >= 6) {
@@ -55,7 +57,9 @@ void draw()
    sizeChanger = sizeChanger*-1;
  }
  if(xx < 0) {xx = 0;};
+ */
   r = 140*sin(-a*theta);
+  
 
   translate(width/2, height/2);
   theta += increment;
@@ -63,8 +67,23 @@ void draw()
   yPos = r * sin(theta);
   fill(myMixer.mixColors(0.1)); // this mixes the colors.
   noStroke();
-  ellipse(xPos, yPos, xx, xx);
+  ellipse(xPos, yPos, 2, 2);
   point(xPos, yPos);
+}
+
+void keyPressed() {
+  if(key =='a') {
+      a += 0.2;
+  }
+  if(key =='b') {
+   background(255); 
+  }
+  if(key =='c') {
+      a -= 0.2;
+  }
+  if(key =='d') {
+      a += 0.8;
+  }
 }
 
 void mousePressed()

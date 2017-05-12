@@ -1,3 +1,8 @@
+// ColorMixer Class Definition
+// Version 1.0
+// Matthew Green
+// May 11, 2017
+// ***************************
 class ColorMixer
 {
   // data  
