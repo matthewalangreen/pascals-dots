@@ -1,61 +1,67 @@
 # Processing Lesson #2 - Make stuff move
+### Make `Dot` class
 
-* Make `Dot` class
+```
 class Dot {
-  data
+ // data
  float x,y,radius;
  
-  constructor
+ // constructor
  Dot(float x_, float y_, float radius_) {
   x = x_;
   y = y_;
   radius = radius_;
  }
  
-  methods
+ // methods
  void display() {
   noStroke();
   ellipse(x,y,radius,radius); 
  }
- 
-}  end of Dot class definition
+
+} // end of Dot class definition
 ```
 
-* Declare new `myDot` object
+
+### Declare new `myDot` object
 `Dot myDot;`
 
-* Set fill color and call `display()`  in  `void draw()`
+
+### Set fill color and call `display()`  in  `void draw()`
 ```
 fill(255,0,0);
 myDot.display();
 ```
 
-* Teach Dot to move up by adding new method to class definition
+
+### Teach Dot to move up by adding new method to class definition
 ```
- put in methods section of Dot class
+// put in methods section of Dot class
 void moveUp() {
 	y = y - speed;
 }
 
- put in data section of Dot class
+// put in data section of Dot class
 float speed;
 
- update Dot class constructor
+// update Dot class constructor
 speed = 5;
 ```
 
-* Call myDot.moveUp() method in draw()
+
+###  Call myDot.moveUp() method in draw()
 ```
 void draw() {
 	myDot.moveUp();
 	myDot.display();
 
-	 you may want to add a background(255); to make it
-	 look like you've got a single dot moving...
+	// you may want to add a background(255); to make it
+	// look like you've got a single dot moving...
 }
 ```
 
-* Add if(keyPressed) into draw and connect movement to key
+
+### Add if(keyPressed) into draw and connect movement to key
 ```
 void draw() {
 	background(255);
@@ -71,10 +77,11 @@ void draw() {
 }
 ```
 
-* Add down, right, left and corresponding keys to movement
+
+### Add down, right, left and corresponding keys to movement
 ```
- Add to methods in Dot class
- ...
+// Add to methods in Dot class
+// ...
 
  void moveDown() {
    y = y + speed;
@@ -88,8 +95,8 @@ void draw() {
    x = x - speed;
  }
 
- update void draw() {
- ...
+// update void draw() {
+// ...
 
 if(keyPressed) {
 	  if(key == 'w') {
@@ -106,35 +113,37 @@ myDot.display();
 }
 ```
 
-* Show how to add a new dot by clicking down
+
+### Show how to add a new dot by clicking down
 ```
- Declar an ArrayList to hold dots
+// Declar an ArrayList to hold dots
 ArrayList<Dot> dots;
 
- instantiate dots ArrayList in void setup()
+// instantiate dots ArrayList in void setup()
 dots = new ArrayList<Dot>();
 
- create new function
+// create new function
 void mousePressed() {
 	dots.add(new Dot(mouseX,mouseY,random(5,20)));
 }
 
- update the if(key == 'w') function to move all dots
+// update the if(key == 'w') function to move all dots
 if(key == 'w') {
 	for(int i = 0; i<dots.size(); i++) {
     dots.get(i).moveUp();
   }
 }
 
- add to the end of the void draw() loop
+// add to the end of the void draw() loop
 for(int i = 0; i<dots.size(); i++) {
   dots.get(i).display();
 }
 ```
 
-* Show how to make all dots move on key press
+
+### Show how to make all dots move on key press
 ```
- update void draw method
+// update void draw method
 
 if(key == 'w') {
     for(int i = 0; i<dots.size(); i++) {
