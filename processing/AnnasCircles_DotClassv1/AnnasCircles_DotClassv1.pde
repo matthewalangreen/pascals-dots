@@ -20,11 +20,9 @@ void draw()
   background(240,255,250,10);
   for(int i = 0; i<dots.size(); i++) {
    dots.get(i).show(); 
-   if(falling) {
-    
+   if(falling && !fallingUp) {
     dots.get(i).fall(); 
-   }
-   if(fallingUp) {
+   } else if(fallingUp && !falling) {
     dots.get(i).fallUp(); 
    }
   }
@@ -45,23 +43,33 @@ void keyPressed()
   
   if(key == 'm') {
     falling = !falling;
+    fallingUp = false;
   }
   
   if(key == 'u') {
     fallingUp = !fallingUp;
+    falling = false;
   }
 
-
-
   if(key == 'o') {
+    falling = false;
+    fallingUp = false;
     background(240,255,240);
    for(int i = 0; i<dots.size(); i++) {
-    dots.get(i).resetPosition(); 
+    dots.get(i).resetXY(); 
    }
   }
   
-   
+  if(key == 'h') {
+    if(dots.size() >=20) {
+      for(int i = 0; i<dots.size(); i++) {
+        dots.get(i).move(width/2,dots.get(i).getYPos());
+      }
+    }
+  }
   
+   
+
 
 //*********************************************************************************
   
@@ -131,7 +139,7 @@ class Dot
     xPos = _xPos;
     yPos = _yPos;
     firstX = _xPos;
-    firstY = yPos;
+    firstY = _yPos;
     radius = _radius;
     dotColor = _dotColor;
     velocity = random(10,20);
@@ -141,8 +149,14 @@ class Dot
    return yPos; 
   }
   void show() {
-   fill(dotColor);
+   fill(dotColor,80);
    ellipse(xPos,yPos,radius,radius);
+  }
+  
+  void move(float newX, float newY) {
+    
+   xPos = newX;
+   yPos = newY;
   }
   
   void fall() {
@@ -152,16 +166,16 @@ class Dot
   }
   
   void fallUp() {
-    while(yPos > firstY) {
+    if(yPos > firstY) {
      yPos -= velocity; 
     }
   }
   
-  void resetPosition() {
+  void resetXY() {
     xPos = firstX;
     yPos = firstY;
   }
-  
  
+  
   
 }
