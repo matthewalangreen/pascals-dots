@@ -9,7 +9,7 @@ float increment = PI/dotController;
 float r;
 color blue = #42548d;
 int function = 1;
-float a = 200.2;
+float a = .6;
 color temp;
 
 color[] pastels = {
@@ -47,7 +47,7 @@ float xx = 1;
 
 void draw()
 {
-  /*
+  
  //background(myMixer.mixColors(0.1));
  xx += sizeChanger;
  if(xx >= 6) {
@@ -57,7 +57,7 @@ void draw()
    sizeChanger = sizeChanger*-1;
  }
  if(xx < 0) {xx = 0;};
- */
+ 
   r = 140*sin(-a*theta);
   
 
@@ -67,7 +67,7 @@ void draw()
   yPos = r * sin(theta);
   fill(myMixer.mixColors(0.1)); // this mixes the colors.
   noStroke();
-  ellipse(xPos, yPos, 2, 2);
+  ellipse(xPos, yPos, xx, xx);
   point(xPos, yPos);
 }
 
