@@ -43,7 +43,8 @@ void setup()
 void draw()
 {
  // background(colorJam.lerpedColor(0.01));
-  r = 140*sin(-a*theta);
+    //r = 140*sin(-a*theta);
+    r = 140*sin(theta);
 
   translate(width/2, height/2);
   theta += increment;
@@ -52,7 +53,7 @@ void draw()
   fill(colorJam.lerpedColor(0.05)); // this mixes the colors.
   noStroke();
   ellipse(xPos, yPos, 6, 6);
-  point(xPos, yPos);
+  //point(xPos, yPos);
 }
 
 void mousePressed()
