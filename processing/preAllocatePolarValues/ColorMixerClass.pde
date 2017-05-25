@@ -1,7 +1,7 @@
 // ColorMixer Class Definition
-// Version 1.0
+// Version 1.1
 // Matthew Green
-// May 11, 2017
+// May 24, 2017
 // ***************************
 class ColorMixer
 {
@@ -20,14 +20,14 @@ class ColorMixer
    indexDelta = 1;
    arrLength = palette.length;
    e = 2.71828;
-   c1 = palette[0]; // new code... to get rid of black spots at start/
-   c2 = palette[1]; // -----------------------------------------------
+   c1 = palette[0]; // eliminates black spot from v1.0
+   c2 = palette[1]; // -------------------------------
   }
   
   // methods
-  color randomColor() {
-    return palette[(int)random(0,palette.length-1)];
-  }
+  //color randomColor() {
+  //  return palette[(int)random(0,palette.length-1)];
+  //}
   
   
   color mixColors(float delta) {

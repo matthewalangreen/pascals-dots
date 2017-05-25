@@ -1,5 +1,5 @@
 // CoordinatePair Class Definition
-// Version 1.0
+// Version 1.1
 // Matthew Green
 // May 24, 2017
 // ***************************
@@ -9,23 +9,7 @@ class CoordinatePair
   float x,y;
   
   // constructor 
-  CoordinatePair() { x = 0; y = 0; } // this is the default constructor
-  
   CoordinatePair(float _x, float _y) {
-    x = _x;
-    y = _y;
-  }
-  
-  // methods
-  void setX(float _x) {
-    x = _x;
-  }
-  
-  void setY(float _y) {
-    y = _y;
-  }
-  
-  void setXY(float _x, float _y) {
     x = _x;
     y = _y;
   }
@@ -38,9 +22,6 @@ class CoordinatePair
    return y; 
   }
   
-  float[] getXY() {
-   return new float[]{x,y}; 
-  }
 
 }// end of CoordinatePairs Class 
  

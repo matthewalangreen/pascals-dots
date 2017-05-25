@@ -62,6 +62,7 @@ class PolarGraph
   }
   
   
+  // ****************** Pretty sure these are all extras *************************** //
   float randomX() {
     float t = random(0,10*PI);
     return size*sin(-a*t) * cos(t) + width/2;
