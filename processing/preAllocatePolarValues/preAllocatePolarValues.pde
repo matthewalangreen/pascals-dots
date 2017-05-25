@@ -1,10 +1,22 @@
+import processing.sound.*;
 
+SoundFile tones;
 int timeLimit = 6000;
 int index = 0;
 float[] aVals = {0.2,0.4,0.5,0.6,1.4,1.5,2,3,5,9,11};  
 
 void setup()
 {
+  //one = new SoundFile(this,"1.mp3");
+  //two = new SoundFile(this,"2.mp3");
+  //three = new SoundFile(this,"3.mp3");
+  //four = new SoundFile(this,"4.mp3");
+  //five = new SoundFile(this,"5.mp3");
+  //six = new SoundFile(this,"6.mp3");
+  //seven = new SoundFile(this,"7.mp3");
+  //eight = new SoundFile(this,"8.mp3");
+  tones = new SoundFile(this,"tone2.mp3");
+  
   fullScreen();
   background(246);
   ellipseMode(CENTER);
@@ -12,6 +24,8 @@ void setup()
   noStroke();
   frameRate(100);
   myGraph.calculateValuePairs(aVals[0]);
+  
+  //tones.loop();
   
 }
 
@@ -78,30 +92,45 @@ void keyPressed()
 {
   if (key == 'a') { // 1 dot
     dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+    tones.rate(1.125);
+    tones.play();
   } else if (key == 'b') { // 2 dots
-    for (int i = 0; i<2; i++) {
-      dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
-    }
+      tones.rate(1.25);
+      tones.play();
+      for (int i = 0; i<2; i++) {
+        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+      }
   } else if (key == 'c') { // 3 dots
-    for (int i = 0; i<3; i++) {
-      dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
-    }
+      tones.rate(1.375);
+      tones.play();
+      for (int i = 0; i<3; i++) {
+        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+      }
   } else if (key == 'd') { // 4 dots
-    for (int i = 0; i<4; i++) {
-      dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
-    }
+      tones.rate(1.5);
+      tones.play();
+      for (int i = 0; i<4; i++) {
+        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+       
+      }
   } else if (key == 'e') { // 5 dots
-    for (int i = 0; i<5; i++) {
-      dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
-    }
+      tones.rate(1.625);
+      tones.play();
+      for (int i = 0; i<5; i++) {
+        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+      }
   } else if (key == 'f') { // 6 dots
-    for (int i = 0; i<6; i++) {
-      dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
-    } 
+      tones.rate(1.75);
+      tones.play();
+      for (int i = 0; i<6; i++) {
+        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+      } 
   } else if (key == 'p') { // 50 dots
-    for (int i = 0; i<100; i++) {
-      dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
-    }
+      tones.rate(1.875);
+      tones.play();
+      for (int i = 0; i<100; i++) {
+        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+      }
   } 
 
 } // end keyPressed()
