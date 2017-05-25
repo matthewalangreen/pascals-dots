@@ -23,3 +23,10 @@ color[] pastels = {
 ArrayList<Dot> dots = new ArrayList<Dot>();
 ColorMixer myMixer = new ColorMixer(pastels);
 PolarGraph myGraph = new PolarGraph();
+
+
+float size;
+float mix = 0.3;
+boolean moving = false;
+int numPairs = 0;
+float randX,randY;

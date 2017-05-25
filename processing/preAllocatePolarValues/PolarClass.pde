@@ -21,18 +21,19 @@ class PolarGraph
     period = PI/2;
     theta = 0;
     alpha = theta;
-    dotController = 100;
+    dotController = 50;
     increment = period/dotController;
-    size = 325;
+    size = 450;
     valuePairs = new ArrayList<CoordinatePair>();
     //r = 300 * sin(-a*theta);
   }
   
   // methods
-  void calculateValuePairs() {
-    for(float i = 0; i<10*PI; i+=increment) {
-      float tx = size*sin(-a*i)*cos(i) + width/2;
-      float ty = size*sin(-a*i)*sin(i) + height/2;
+  void calculateValuePairs(float val) {
+    valuePairs.clear();
+    for(float i = 0; i<30*PI; i+=increment) {
+      float tx = size*sin(-val*i)*cos(i) + width/2;
+      float ty = size*sin(-val*i)*sin(i) + height/2;
       valuePairs.add(new CoordinatePair(tx,ty));
     }
   }
