@@ -7,15 +7,10 @@ float[] aVals = {0.2,0.4,0.5,0.6,1.4,1.5,2,3,5,9,11};
 
 void setup()
 {
-  //one = new SoundFile(this,"1.mp3");
-  //two = new SoundFile(this,"2.mp3");
-  //three = new SoundFile(this,"3.mp3");
-  //four = new SoundFile(this,"4.mp3");
-  //five = new SoundFile(this,"5.mp3");
-  //six = new SoundFile(this,"6.mp3");
-  //seven = new SoundFile(this,"7.mp3");
-  //eight = new SoundFile(this,"8.mp3");
-  tones = new SoundFile(this,"tone2.mp3");
+  //tones = new SoundFile(this,"edm.mp3");
+  //tones = new SoundFile(this,"houseOrgan.mp3");
+  //tones = new SoundFile(this,"massiveSaws.mp3");
+  tones = new SoundFile(this,"strings.mp3");
   
   fullScreen();
   background(246);
@@ -25,7 +20,6 @@ void setup()
   frameRate(100);
   myGraph.calculateValuePairs(aVals[0]);
   
-  //tones.loop();
   
 }
 
@@ -125,10 +119,10 @@ void keyPressed()
       for (int i = 0; i<6; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       } 
-  } else if (key == 'p') { // 50 dots
+  } else if (key == 'g') { // 10 dots
       tones.rate(1.875);
       tones.play();
-      for (int i = 0; i<100; i++) {
+      for (int i = 0; i<10; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       }
   } 
