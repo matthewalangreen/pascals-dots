@@ -17,8 +17,11 @@ color[] pastels = {
   color(106, 166, 130)
 };
 
+// Object declarations
 ArrayList<Dot> dots = new ArrayList<Dot>();
 ColorMixer myMixer = new ColorMixer(pastels);
+PolarGraph myGraph = new PolarGraph();
+
 float size;
 float mix = 0.3;
 boolean moving = false;
@@ -30,6 +33,7 @@ void setup()
   ellipseMode(CENTER);
   size(900, 900);
   noStroke();
+  frameRate(100);
 }
 
 void draw()
@@ -38,15 +42,32 @@ void draw()
   for (int i = 0; i< dots.size(); i++ ) {
     cDot = dots.get(i);
     if(moving) {
-     PVector mouse = new PVector(mouseX,mouseY);
-    cDot.arrive(mouse); 
+    // will follow mouse:
+    // PVector mouse = new PVector(mouseX,mouseY);
+    // cDot.arrive(mouse); 
+    
+    // will follow polar curve:
+    //PVector polar = new PVector(myGraph.x(),myGraph.y());
+    //cDot.arrive(polar);
+    
+    // will follow polar curve differently
+    PVector uniquePolar = new PVector(myGraph.x(),myGraph.y());
+    cDot.arrive(uniquePolar);
+
     } else {
      PVector home = new PVector(cDot.x(),cDot.y());
      cDot.arrive(home);
     }
     cDot.update();
     cDot.display();
+    myGraph.update();
+    fill(myMixer.randomColor());
+    //ellipse(myGraph.x(),myGraph.y(),20,20);
+
   }
+ // myGraph.update();
+   // fill(myMixer.randomColor());
+   // ellipse(myGraph.x(),myGraph.y(),20,20);
 
   Iterator<Dot> it = dots.iterator();
 
@@ -57,11 +78,20 @@ void draw()
       it.remove();
     }
   }
-  println(dots.size() + " Items in the dots ArrayList.");
+  //println(dots.size() + " Items in the dots ArrayList.");
+ 
+  
+  //println("my x: "+myGraph.x()+ " my y: "+myGraph.y());
+  if(dots.size()>=1) {
+   println("Max Speed: "+dots.get(0).getMaxSpeed()+" Max Force: "+dots.get(0).getMaxForce()+ " Items: "+dots.size());
+  } else {
+     println("Max Speed: "+"###"+" Max Force: "+"###"+ " Items: "+dots.size());
+  }
 }
 
 void mousePressed() {
   moving = !moving; 
+ 
 }
 
 void keyPressed()
@@ -92,10 +122,33 @@ void keyPressed()
       dots.add(new Dot(random(900), random(900), random(10, 50), myMixer.mixColors(mix)));
     } 
   } else if (key == 'p') { // 50 dots
-    for (int i = 0; i<50; i++) {
+    for (int i = 0; i<200; i++) {
       dots.add(new Dot(random(900), random(900), random(10, 50), myMixer.mixColors(mix)));
     }
   }
+  //} else if (key == CODED) {
+  //  if(keyCode == UP) {
+  //   // println("Max Speed: "+dots.get(0).getMaxSpeed()+" Max Force: "+dots.get(0).getMaxForce());
+  //    for(int m = 0; m<dots.size(); m++) {
+  //      dots.get(m).increaseMaxSpeed();
+  //    }
+  //  } else if(keyCode == DOWN) {
+  //   // println("Max Speed: "+dots.get(0).getMaxSpeed()+" Max Force: "+dots.get(0).getMaxForce());
+  //    for(int m = 0; m<dots.size(); m++) {
+  //      dots.get(m).decreaseMaxSpeed();
+  //    }
+  //  } else if(keyCode == LEFT) {
+  //   // println("Max Speed: "+dots.get(0).getMaxSpeed()+" Max Force: "+dots.get(0).getMaxForce());
+  //    for(int m = 0; m<dots.size(); m++) {
+  //      dots.get(m).decreaseMaxForce();
+  //    }
+  //  } else if(keyCode == RIGHT) {
+  //   // println("Max Speed: "+dots.get(0).getMaxSpeed()+" Max Force: "+dots.get(0).getMaxForce());
+  //    for(int m = 0; m<dots.size(); m++) {
+  //      dots.get(m).increaseMaxForce();
+  //    }
+  //  }
+
 } // end keyPressed()
 
 class Dot {
@@ -104,9 +157,8 @@ class Dot {
   PVector location;
   PVector velocity;
   PVector acceleration;
-
-
-  float firstX, firstY, radius, maxForce, maxSpeed, lifespan;
+  PVector newLocation;
+  float firstX, firstY, radius, lifespan,maxForce,maxSpeed;
   color dotColor;
 
   // Constructor
@@ -114,9 +166,10 @@ class Dot {
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
     location = new PVector(_firstX, _firstY);
+    newLocation = location;
     radius = _radius;
-    maxSpeed = 7;
-    maxForce = 0.4;
+    maxSpeed = 2;  // 7 is default
+    maxForce = 0.06; // 0.4 is default
     dotColor = _dotColor;
     lifespan = random(100,255);
     firstX = _firstX;
@@ -124,6 +177,38 @@ class Dot {
   }
 
   // Methods
+  float getMaxSpeed() {
+   return maxSpeed; 
+  }
+  
+  float getMaxForce() {
+   return maxForce; 
+  }
+  
+  void increaseMaxSpeed() {
+    maxSpeed += 0.25;
+  }
+  
+  void decreaseMaxSpeed() {
+    maxSpeed -= 0.25;
+  }
+  
+  void increaseMaxForce() {
+    maxForce += 0.25;
+  }
+  
+  void decreaseMaxForce() {
+    maxForce -= 0.25;
+  }
+  
+  PVector getNewLocation() {
+    return newLocation;
+  }
+  
+  void setNewLocation(float x, float y) {
+   newLocation = new PVector(x,y); 
+  }
+  
   float x() {
    return firstX; 
   }
@@ -136,7 +221,7 @@ class Dot {
     velocity.limit(maxSpeed);
     location.add(velocity);
     acceleration.mult(0);
-    lifespan -= .5; // change this to affect how long they live overall
+    lifespan -= .1; // change this to affect how long they live overall
   }
 
   void applyForce(PVector force) {
@@ -221,6 +306,11 @@ class ColorMixer
   }
   
   // methods
+  color randomColor() {
+    return palette[(int)random(0,palette.length-1)];
+  }
+  
+  
   color mixColors(float delta) {
     x += delta;
     if(x > limit) {
