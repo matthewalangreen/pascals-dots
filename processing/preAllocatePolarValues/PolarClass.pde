@@ -1,5 +1,5 @@
 // PolarGraph Class Definition
-// Version 1.0
+// Version 1.1
 // Matthew Green
 // May 22, 2017
 // ***************************
@@ -8,6 +8,7 @@ class PolarGraph
   // data  
   float xPos,yPos,period,theta,alpha,increment,dotController,r,a,size;
   color curColor,temp;
+  ArrayList<CoordinatePair> valuePairs;
   
   // ** REMEMBER **
   // r = 140*sin(-a*theta);
@@ -20,13 +21,30 @@ class PolarGraph
     period = PI/2;
     theta = 0;
     alpha = theta;
-    dotController = 200;
+    dotController = 100;
     increment = period/dotController;
-    size = 300;
+    size = 150;
+    valuePairs = new ArrayList<CoordinatePair>();
     //r = 300 * sin(-a*theta);
   }
   
   // methods
+  void calculateValuePairs() {
+    for(float i = 0; i<10*PI; i+=increment) {
+      float tx = size*sin(-a*i)*cos(i) + width/2;
+      float ty = size*sin(-a*i)*sin(i) + height/2;
+      valuePairs.add(new CoordinatePair(tx,ty));
+    }
+  }
+  
+  float[] getValuePair(int index) {
+    if(index < valuePairs.size()) {
+      return new float[] {valuePairs.get(index).getX(),valuePairs.get(index).getY()};     
+    } else {
+      return new float[] {-1000,1000};
+    }
+  }
+  
   
   void update() {
    r = size * sin(-a*theta);
@@ -35,7 +53,6 @@ class PolarGraph
    xPos = r * cos(theta) + width/2;
    yPos = r * sin(theta) + height/2;
   }
-  
   
   
   float randomX() {
