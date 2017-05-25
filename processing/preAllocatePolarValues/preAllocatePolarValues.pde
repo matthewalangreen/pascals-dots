@@ -1,26 +1,4 @@
-//import java.util.Iterator;
-//color[] pastels = {
-//  color(194, 86, 119), 
-//  color(199, 122, 159), 
-//  color(178, 116, 158), 
-//  color(157, 111, 156), 
-//  color(139, 108, 155), 
-//  color(125, 110, 160), 
-//  color(117, 114, 163), 
-//  color(81, 90, 157), 
-//  color(118, 145, 199), 
-//  color(101, 174, 208), 
-//  color(92, 153, 169), 
-//  color(99, 172, 171), 
-//  color(100, 170, 154), 
-//  color(105, 166, 142), 
-//  color(106, 166, 130)
-//};
 
-//// Object declarations
-//ArrayList<Dot> dots = new ArrayList<Dot>();
-//ColorMixer myMixer = new ColorMixer(pastels);
-//PolarGraph myGraph = new PolarGraph();
 
 float size;
 float mix = 0.3;
@@ -42,11 +20,13 @@ void setup()
 void draw()
 {
   numPairs = myGraph.valuePairsSize();
-  if(numPairs > 0) {
-    float[] t =  myGraph.getValuePair((int)random(0,numPairs));
-    randX = t[0];
-    randY = t[1];
-  }
+    //if(numPairs > 0) {
+    //  float[] t =  myGraph.getValuePair((int)random(0,numPairs));
+    //  randX = t[0];
+    //  randY = t[1];
+    //}
+  
+
   background(246);
   for (int i = 0; i< dots.size(); i++ ) {
     cDot = dots.get(i);
@@ -56,15 +36,19 @@ void draw()
     // cDot.arrive(mouse); 
     
     // will follow polar curve:
-    //PVector polar = new PVector(myGraph.x(),myGraph.y());
+    //PVector polar = new PVector(myGraph.x(),myGraph.y());s
     //cDot.arrive(polar);
     
     // will follow polar curve differently
     //PVector uniquePolar = new PVector(myGraph.x(),myGraph.y());
     //cDot.arrive(uniquePolar);
-    
-    PVector preAllocPolar = new PVector(randX,randY);
-    cDot.arrive(preAllocPolar);
+    if(numPairs > i) {
+      float[] t =  myGraph.getValuePair(i);
+      randX = t[0];
+      randY = t[1];
+      PVector preAllocPolar = new PVector(randX,randY);
+      cDot.arrive(preAllocPolar);
+    }
 
     } else {
      PVector home = new PVector(cDot.x(),cDot.y());

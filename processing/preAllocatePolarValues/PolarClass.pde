@@ -17,13 +17,13 @@ class PolarGraph
   
   // constructor 
   PolarGraph() {
-    a = 0.6;
+    a = 0.7;  // 0.6 is default
     period = PI/2;
     theta = 0;
     alpha = theta;
     dotController = 100;
     increment = period/dotController;
-    size = 150;
+    size = 325;
     valuePairs = new ArrayList<CoordinatePair>();
     //r = 300 * sin(-a*theta);
   }

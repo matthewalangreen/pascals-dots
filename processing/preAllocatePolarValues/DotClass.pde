@@ -16,7 +16,7 @@ class Dot {
     newLocation = location;
     radius = _radius;
     maxSpeed = 7;  // 7 is default
-    maxForce = 0.06; // 0.4 is default
+    maxForce = 0.4; // 0.4 is default
     dotColor = _dotColor;
     lifespan = random(100,255);
     firstX = _firstX;
@@ -68,7 +68,7 @@ class Dot {
     velocity.limit(maxSpeed);
     location.add(velocity);
     acceleration.mult(0);
-    lifespan -= .1; // change this to affect how long they live overall
+    lifespan -= .4; // change this to affect how long they live overall
   }
 
   void applyForce(PVector force) {
