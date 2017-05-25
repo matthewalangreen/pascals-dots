@@ -45,6 +45,12 @@ class PolarGraph
     }
   }
   
+  int valuePairsSize() {
+   return valuePairs.size(); 
+  }
+  
+  // ***********************************************
+  
   
   void update() {
    r = size * sin(-a*theta);

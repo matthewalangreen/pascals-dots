@@ -15,7 +15,7 @@ class Dot {
     location = new PVector(_firstX, _firstY);
     newLocation = location;
     radius = _radius;
-    maxSpeed = 2;  // 7 is default
+    maxSpeed = 7;  // 7 is default
     maxForce = 0.06; // 0.4 is default
     dotColor = _dotColor;
     lifespan = random(100,255);
