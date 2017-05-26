@@ -1,7 +1,8 @@
 import processing.sound.*;
 
 SoundFile tones;
-int timeLimit = 6000;
+int timeLimit = 5000;
+int movingTimer = 8000;
 int index = 0;
 float[] aVals = {0.2,0.4,0.5,0.6,1.4,1.5,2,3,5,9,11};  
 
@@ -28,12 +29,16 @@ void draw()
   // check to see if timeLimit has passed, 
   // if it has then switch to next "a" value in aVals[]
   if(millis() > timeLimit ) {
-    timeLimit += 8000;
+    timeLimit += 5000;
     index++;
     if(index > aVals.length-1) {
      index = 0;
     }
     myGraph.calculateValuePairs(aVals[index]);  // recalculate all values on new curve
+  }
+  if(millis() > movingTimer) {
+    movingTimer += 8000;
+    moving = !moving;
   }
   
   numPairs = myGraph.valuePairsSize(); // keep track of how many coordinate pairs their are for error checking

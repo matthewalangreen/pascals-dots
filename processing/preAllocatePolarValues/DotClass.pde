@@ -7,6 +7,9 @@ class Dot {
   PVector newLocation;
   float firstX, firstY, radius, lifespan,maxForce,maxSpeed;
   color dotColor;
+  float change;
+  int counter;
+  boolean growing;
 
   // Constructor
   Dot(float _firstX, float _firstY, float _radius, color _dotColor) {
@@ -22,9 +25,22 @@ class Dot {
     lifespan = random(100,255);
     firstX = _firstX;
     firstY = _firstY;
+    change = 0.04;
+    growing = true;
+    counter = 0;
   }
 
   // Methods
+  void pulse() {
+    counter++;
+    if(counter > 80) {
+      counter = 0;
+      growing = !growing;
+      change = change*(-1);
+    }
+    radius += change;
+  }
+  
   float getMaxSpeed() {
    return maxSpeed; 
   }
@@ -70,6 +86,7 @@ class Dot {
     location.add(velocity);
     acceleration.mult(0);
     lifespan -= .05; // change this to affect how long they live overall
+    pulse();
   }
 
   void applyForce(PVector force) {
