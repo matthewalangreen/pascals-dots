@@ -85,7 +85,7 @@ class Dot {
     velocity.limit(maxSpeed);
     location.add(velocity);
     acceleration.mult(0);
-    lifespan -= .05; // change this to affect how long they live overall
+    lifespan -= .08; // change this to affect how long they live overall
     pulse();
   }
 
