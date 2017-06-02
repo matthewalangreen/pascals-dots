@@ -1,20 +1,21 @@
 import processing.sound.*;
 
 SoundFile tones;
-int timeLimit = 5000;
-int movingTimer = 8000;
+int timeLimit = 9000;  //change a values to switch to new curve
+int movingTimer = 8000; // swicthes between static and moving positions
 int index = 0;
-int numPhotos = 0;
-float[] aVals = {0.2,0.4,0.5,0.6,1.4,1.5,2,3,5,9,11};  
-ArrayList<String> photos = new ArrayList<String>();
+//int numPhotos = 0;
+float[] aVals = {0.2,0.35,0.4,0.5,4,0.6,0.75,1.4,2,3};  
+//ArrayList<String> photos = new ArrayList<String>();
+Slideshow slides;
 
 void setup()
 {
-  //tones = new SoundFile(this,"edm.mp3");
-  //tones = new SoundFile(this,"houseOrgan.mp3");
+  tones = new SoundFile(this,"edm.mp3");
+  //tones = new SoundFile(this,"houseOrgan.mp3");  -- doesn't like encoding...
   //tones = new SoundFile(this,"massiveSaws.mp3");
-  //tones = new SoundFile(this,"strings.mp3");
-  
+  //tones = new SoundFile(this,"strings.mp3");  -- doesn't like encoding...
+   
   fullScreen();
   background(246);
   ellipseMode(CENTER);
@@ -22,8 +23,7 @@ void setup()
   noStroke();
   frameRate(100);
   myGraph.calculateValuePairs(aVals[0]);
-  
-  
+  slides = new Slideshow();
 }
 
 void draw()
@@ -82,7 +82,12 @@ void draw()
   }
   // debugging
   println("Items: "+dots.size()+" Millis: "+timeLimit+ " index: "+index+ " a-value: "+aVals[index]);
-}
+ //String t = "";
+ //for(int i = 0; i<slides.size(); i++) {
+ // t = t+slides.slidePathAtIndex(i)+"...";
+ //}
+ //println(t);
+}//
 
 void mousePressed() {
   moving = !moving; 
@@ -93,52 +98,47 @@ void keyPressed()
 {
   if (key == 'a') { // 1 dot
     dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
-    //tones.rate(1.125);
-    //tones.play();
+    tones.rate(1.125);
+    tones.play();
   } else if (key == 'b') { // 2 dots
-      //tones.rate(1.25);
-      //tones.play();
+      tones.rate(1.25);
+      tones.play();
       for (int i = 0; i<2; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       }
   } else if (key == 'c') { // 3 dots
-      //tones.rate(1.375);
-     // tones.play();
+      tones.rate(1.375);
+      tones.play();
       for (int i = 0; i<3; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       }
   } else if (key == 'd') { // 4 dots
-      //tones.rate(1.5);
-     // tones.play();
+      tones.rate(1.5);
+      tones.play();
       for (int i = 0; i<4; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
        
       }
   } else if (key == 'e') { // 5 dots
-     // tones.rate(1.625);
-     // tones.play();
+      tones.rate(1.625);
+      tones.play();
       for (int i = 0; i<5; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       }
   } else if (key == 'f') { // 6 dots
-     // tones.rate(1.75);
-     // tones.play();
+      tones.rate(1.75);
+      tones.play();
       for (int i = 0; i<6; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       } 
   } else if (key == 'g') { // 10 dots
-    //  tones.rate(1.875);
-     // tones.play();
+      tones.rate(1.875);
+      tones.play();
       for (int i = 0; i<10; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       }
   } else if (key == 'p') {
-    numPhotos++;
-    String temp = "pics/"+numPhotos+".png";
-    //String temp = "pics/"+hour()+"-"+minute()+"-"+second()+"/"+numPhotos+".png";
-    photos.add(temp);
-    save(temp);
-    //noLoop();
-  }
+    slides.addSlide();
+  } 
 
 } // end keyPressed()
