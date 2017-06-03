@@ -1,72 +1,59 @@
 // ****************** Header ************************ //
-import java.util.Iterator;
+import java.util.Iterator; // for keeping track of dots as they die
+//import processing.sound.*;
+//SoundFile tones;
 
+// Dot Instances
+ArrayList<Dot> dots = new ArrayList<Dot>();
 Dot cDot;
 
-color[] pastels = {
-  color(194, 86, 119), 
-  color(199, 122, 159), 
-  color(178, 116, 158), 
-  color(157, 111, 156), 
-  
-  color(139, 108, 155), 
-  color(125, 110, 160), 
-  color(117, 114, 163), 
-  color(81, 90, 157), 
-  
-  color(118, 145, 199), 
-  color(101, 174, 208), 
-  color(92, 153, 169), 
-  color(99, 172, 171),
-  color(255,131,0),   // eew.  Gross orange
-  color(100, 170, 154), 
-  color(105, 166, 142), 
-  color(106, 166, 130)
-};
 
-ArrayList<Dot> dots = new ArrayList<Dot>();
+// Color Stuff
+color[] pastels = {color(194, 86, 119), color(199, 122, 159), color(178, 116, 158), 
+  color(157, 111, 156), color(139, 108, 155), color(125, 110, 160), color(117, 114, 163), 
+  color(81, 90, 157), color(118, 145, 199), color(101, 174, 208), color(92, 153, 169), 
+  color(99, 172, 171), color(255,131,0), /*orange */ color(100, 170, 154), 
+  color(105, 166, 142), color(106, 166, 130) };
+  
 ColorMixer myMixer = new ColorMixer(pastels);
-PolarGraph myGraph = new PolarGraph();
-
-float size;
 float mix = 0.05; // 0.3 is default
-boolean moving = false;
-int numPairs = 0;
-float tempX,tempY;
+color bg; // to use with changing background colors on keyPress...
 
-import processing.sound.*;
 
-SoundFile tones;
-int timeLimit = 9000;  //change a values to switch to new curve
-int movingTimer = 14000; // swicthes between static and moving positions
-int index = 0;
-boolean whiteBG = false;
-color bg;
-//int numPhotos = 0;
-
+// Polar graph stuff...
 // https://www.desmos.com/calculator/mic1r81ces
 float[] aVals = {0.2,0.35,0.4,0.5,4,0.6,0.75,1.4,2,3};  
-//ArrayList<String> photos = new ArrayList<String>();
+PolarGraph myGraph = new PolarGraph();
+int numPairs = 0; // to keep track of size of coordinates array in myGraph
+float tempX,tempY; // same as above
+
+
+// Timers ... this is ugly and needs cleaning... refactor to use frameCount;
+int timeLimit = 9000;  //change a values to switch to new curve
+int movingTimer = 14000; // swicthes between static and moving positions
+boolean moving = true;
+int index = 0;
+
+
+// for use with slideshow that saves background images
 Slideshow slides;
 
 // ******************  End Of Header ************************ //
 
 void setup()
 {
-  tones = new SoundFile(this,"edm_conv.mp3");
-  //tones = new SoundFile(this,"houseOrgan_conv.mp3"); // -- doesn't like encoding...
-  //tones = new SoundFile(this,"massiveSaws.mp3");
-  //tones = new SoundFile(this,"strings.mp3"); // -- doesn't like encoding...
-   
-  fullScreen();
+  //tones = new SoundFile(this,"edm_conv.mp3");
+ 
+  fullScreen(JAVA2D);
 
   ellipseMode(CENTER);
   //size(1024, 768);
   noStroke();
-  frameRate(100);
-  myGraph.calculateValuePairs(aVals[0]);
+  frameRate(24); // 100 is default
+  myGraph.calculateValuePairs(aVals[0]); // calculate locations on first curve
   slides = new Slideshow();
   bg = color(0);
+  
 }
 
 void draw()
@@ -83,14 +70,12 @@ void draw()
     }
     myGraph.calculateValuePairs(aVals[index]);  // recalculate all values on new curve
   }
-  if(millis() > movingTimer) {
-    movingTimer += 8000;
-    moving = !moving;
-  }
+  //if(millis() > movingTimer) {
+  //  movingTimer += 8000;
+  //  moving = !moving;
+  //}
   
   numPairs = myGraph.valuePairsSize(); // keep track of how many coordinate pairs their are for error checking
- 
-  
   
   // loop through dots and draw them based on if they should be moving or not...
   for (int i = 0; i< dots.size(); i++ ) {
@@ -136,71 +121,69 @@ void draw()
 
 void mousePressed() {
   for(int i = 0; i<5; i++) {
-    dots.add(new Dot(mouseX+random(-50,50),mouseY+random(-50,50),random(10,50),myMixer.mixColors(mix)));
-    tones.rate(1.625);
-    tones.play();
+    dots.add(new Dot(mouseX+random(-50,50),mouseY+random(-50,50),myMixer.mixColors(mix)));
+   // tones.rate(1.625);
+   // tones.play();
   }
 }
 
 void keyPressed()
 {
   if (key == 'a' || key == '1') { // 1 dot
-    dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
-    tones.rate(1);
-    tones.play();
+    dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
+    //tones.rate(1);
+   // tones.play();
   } else if (key == 'b' || key == '2') { // 2 dots
-      tones.rate(1.167);
-      tones.play();
+     // tones.rate(1.167);
+     // tones.play();
       for (int i = 0; i<2; i++) {
-        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'c' || key == '3') { // 3 dots
-      tones.rate(1.333);
-      tones.play();
+     // tones.rate(1.333);
+     // tones.play();
       for (int i = 0; i<3; i++) {
-        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'd' || key == '4') { // 4 dots
-      tones.rate(1.4166);
-      tones.play();
+     // tones.rate(1.4166);
+     // tones.play();
       for (int i = 0; i<4; i++) {
-        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
        
       }
   } else if (key == 'e' || key == '5') { // 5 dots
-      tones.rate(1.583);
-      tones.play();
+     // tones.rate(1.583);
+     // tones.play();
       for (int i = 0; i<5; i++) {
-        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'f' || key == '6') { // 6 dots
-      tones.rate(1.749);
-      tones.play();
+     // tones.rate(1.749);
+     // tones.play();
       for (int i = 0; i<6; i++) {
-        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       } 
   } else if (key == 'g' || key == '0') { // 10 dots
-      tones.rate(2.666);
-      tones.play();
+     // tones.rate(2.666);
+     // tones.play();
       for (int i = 0; i<10; i++) {
-        dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
+        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
-  } else if (key == 'p') {
+  } else if (key == 'p') { // take screenshot 'n stuff
     slides.addSlide();
-  } else if (key == 'w') {
+  } else if (key == 'r') { // set random mixed color background
     bg = myMixer.randomColor();
-  } else if (key == 'q' ) {
+  } else if (key == 't' ) { // make background black
     bg = color(0,0,0);
-  } else if (keyCode == TAB) {
+  } else if (key == 'y') { // make background offwhite
     bg = color(246);
-  } else if (key == 'm') {
+  } else if (key == 'm') { // make dots move
    moving = !moving;  
   }
-
 } // end keyPressed()
 
 // *************** ColorMixer Class ************************* //
-
 // ColorMixer Class Definition
 // Version 1.1
 // Matthew Green
@@ -228,17 +211,13 @@ class ColorMixer
   }
   
   // methods
-  //color randomColor() {
-  //  return palette[(int)random(0,palette.length-1)];
-  //}
-  
+
   color randomColor() {
     int c,d;
     c = (int)random(0,arrLength-1);
     d = c+1;
    return lerpColor(palette[c],palette[d],random(0,1));
   }
-  
   
   color mixColors(float delta) {
     x += delta;
@@ -335,25 +314,30 @@ class Dot {
   PVector newLocation;
   float firstX, firstY, radius, lifespan,maxForce,maxSpeed;
   color dotColor;
-  float change;
+  float radiusChange;
+  float deathRate;
   int counter;
   boolean growing;
 
   // Constructor
-  Dot(float _firstX, float _firstY, float _radius, color _dotColor) {
+  Dot(float _firstX, float _firstY, color _dotColor) {
+    
+    // ********************************** CHANGE THESE AS NEEDED *************************
+    maxSpeed = 16;  // 7 is default
+    maxForce = 1.2; // 0.4 is default
+    deathRate = 0.4; // 0.8 is default
+    radiusChange = 0.1; // 0.04 is default
+    lifespan = random(150,400); //100,255 is default
+    // ***********************************************************************************
+    
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
     location = new PVector(_firstX, _firstY);
     newLocation = location;
-    //radius = _radius;
-    radius = random(10,50);  // not needed?
-    maxSpeed = 12;  // 7 is default
-    maxForce = 0.4; // 0.4 is default
+    radius = random(10,50); 
     dotColor = _dotColor;
-    lifespan = random(100,255);
     firstX = _firstX;
     firstY = _firstY;
-    change = 0.04;
     growing = true;
     counter = 0;
   }
@@ -361,12 +345,12 @@ class Dot {
   // Methods
   void pulse() {
     counter++;
-    if(counter > 80) {
+    if(counter > 30) {
       counter = 0;
       growing = !growing;
-      change = change*(-1);
+      radiusChange = radiusChange*(-1);
     }
-    radius += change;
+    radius += radiusChange;
   }
   
   float getMaxSpeed() {
@@ -413,7 +397,8 @@ class Dot {
     velocity.limit(maxSpeed);
     location.add(velocity);
     acceleration.mult(0);
-    lifespan -= .08; // change this to affect how long they live overall
+    //lifespan -= .08; // change this to affect how long they live overall
+    lifespan -= deathRate;
     pulse();
   }
 
