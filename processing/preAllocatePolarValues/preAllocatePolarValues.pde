@@ -2,7 +2,7 @@ import processing.sound.*;
 
 SoundFile tones;
 int timeLimit = 9000;  //change a values to switch to new curve
-int movingTimer = 8000; // swicthes between static and moving positions
+int movingTimer = 14000; // swicthes between static and moving positions
 int index = 0;
 boolean whiteBG = false;
 color bg;
@@ -21,7 +21,6 @@ void setup()
   //tones = new SoundFile(this,"strings.mp3"); // -- doesn't like encoding...
    
   fullScreen();
-  background(100);
 
   ellipseMode(CENTER);
   //size(1024, 768);
@@ -29,7 +28,7 @@ void setup()
   frameRate(100);
   myGraph.calculateValuePairs(aVals[0]);
   slides = new Slideshow();
-  bg = color(0,0,0);
+  bg = color(0);
 }
 
 void draw()
@@ -46,10 +45,10 @@ void draw()
     }
     myGraph.calculateValuePairs(aVals[index]);  // recalculate all values on new curve
   }
-  //if(millis() > movingTimer) {
-  //  movingTimer += 8000;
-  //  moving = !moving;
-  //}
+  if(millis() > movingTimer) {
+    movingTimer += 8000;
+    moving = !moving;
+  }
   
   numPairs = myGraph.valuePairsSize(); // keep track of how many coordinate pairs their are for error checking
  
@@ -148,7 +147,7 @@ void keyPressed()
   } else if (key == 'p') {
     slides.addSlide();
   } else if (key == 'w') {
-    bg = myMixer.mixColors(mix);
+    bg = myMixer.randomColor();
   } else if (key == 'q' ) {
     bg = color(0,0,0);
   } else if (keyCode == TAB) {

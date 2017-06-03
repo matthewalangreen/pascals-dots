@@ -29,6 +29,13 @@ class ColorMixer
   //  return palette[(int)random(0,palette.length-1)];
   //}
   
+  color randomColor() {
+    int c,d;
+    c = (int)random(0,arrLength-1);
+    d = c+1;
+   return lerpColor(palette[c],palette[d],random(0,1));
+  }
+  
   
   color mixColors(float delta) {
     x += delta;
