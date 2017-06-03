@@ -4,30 +4,38 @@ SoundFile tones;
 int timeLimit = 9000;  //change a values to switch to new curve
 int movingTimer = 8000; // swicthes between static and moving positions
 int index = 0;
+boolean whiteBG = false;
+color bg;
 //int numPhotos = 0;
+
+// https://www.desmos.com/calculator/mic1r81ces
 float[] aVals = {0.2,0.35,0.4,0.5,4,0.6,0.75,1.4,2,3};  
 //ArrayList<String> photos = new ArrayList<String>();
 Slideshow slides;
 
 void setup()
 {
-  tones = new SoundFile(this,"edm.mp3");
-  //tones = new SoundFile(this,"houseOrgan.mp3");  -- doesn't like encoding...
+  tones = new SoundFile(this,"edm_conv.mp3");
+  //tones = new SoundFile(this,"houseOrgan_conv.mp3"); // -- doesn't like encoding...
   //tones = new SoundFile(this,"massiveSaws.mp3");
-  //tones = new SoundFile(this,"strings.mp3");  -- doesn't like encoding...
+  //tones = new SoundFile(this,"strings.mp3"); // -- doesn't like encoding...
    
   fullScreen();
-  background(246);
+  background(100);
+
   ellipseMode(CENTER);
   //size(1024, 768);
   noStroke();
   frameRate(100);
   myGraph.calculateValuePairs(aVals[0]);
   slides = new Slideshow();
+  bg = color(0,0,0);
 }
 
 void draw()
 {
+  background(bg);
+  
   // check to see if timeLimit has passed, 
   // if it has then switch to next "a" value in aVals[]
   if(millis() > timeLimit ) {
@@ -45,7 +53,7 @@ void draw()
   
   numPairs = myGraph.valuePairsSize(); // keep track of how many coordinate pairs their are for error checking
  
-  background(246);
+  
   
   // loop through dots and draw them based on if they should be moving or not...
   for (int i = 0; i< dots.size(); i++ ) {
@@ -96,42 +104,42 @@ void mousePressed() {
 
 void keyPressed()
 {
-  if (key == 'a') { // 1 dot
+  if (key == 'a' || key == '1') { // 1 dot
     dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
     tones.rate(1.125);
     tones.play();
-  } else if (key == 'b') { // 2 dots
+  } else if (key == 'b' || key == '2') { // 2 dots
       tones.rate(1.25);
       tones.play();
       for (int i = 0; i<2; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       }
-  } else if (key == 'c') { // 3 dots
+  } else if (key == 'c' || key == '3') { // 3 dots
       tones.rate(1.375);
       tones.play();
       for (int i = 0; i<3; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       }
-  } else if (key == 'd') { // 4 dots
+  } else if (key == 'd' || key == '4') { // 4 dots
       tones.rate(1.5);
       tones.play();
       for (int i = 0; i<4; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
        
       }
-  } else if (key == 'e') { // 5 dots
+  } else if (key == 'e' || key == '5') { // 5 dots
       tones.rate(1.625);
       tones.play();
       for (int i = 0; i<5; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       }
-  } else if (key == 'f') { // 6 dots
+  } else if (key == 'f' || key == '6') { // 6 dots
       tones.rate(1.75);
       tones.play();
       for (int i = 0; i<6; i++) {
         dots.add(new Dot(random(width), random(height), random(10, 50), myMixer.mixColors(mix)));
       } 
-  } else if (key == 'g') { // 10 dots
+  } else if (key == 'g' || key == '0') { // 10 dots
       tones.rate(1.875);
       tones.play();
       for (int i = 0; i<10; i++) {
@@ -139,6 +147,12 @@ void keyPressed()
       }
   } else if (key == 'p') {
     slides.addSlide();
-  } 
+  } else if (key == 'w') {
+    bg = myMixer.mixColors(mix);
+  } else if (key == 'q' ) {
+    bg = color(0,0,0);
+  } else if (keyCode == TAB) {
+    bg = color(246);
+  }
 
 } // end keyPressed()
