@@ -1,12 +1,11 @@
 // ****************** Header ************************ //
 import java.util.Iterator; // for keeping track of dots as they die
-//import processing.sound.*;
-//SoundFile tones;
+import processing.sound.*;
+SoundFile tones;
 
 // Dot Instances
 ArrayList<Dot> dots = new ArrayList<Dot>();
 Dot cDot;
-
 
 // Color Stuff
 color[] pastels = {color(194, 86, 119), color(199, 122, 159), color(178, 116, 158), 
@@ -38,13 +37,15 @@ int index = 0;
 // for use with slideshow that saves background images
 Slideshow slides;
 
+// for drawing mode
+boolean mouseP = false;
 // ******************  End Of Header ************************ //
 
 void setup()
 {
-  //tones = new SoundFile(this,"edm_conv.mp3");
- 
-  fullScreen(JAVA2D);
+  tones = new SoundFile(this,"edm_conv.mp3");
+  
+  fullScreen();
 
   ellipseMode(CENTER);
   //size(1024, 768);
@@ -53,12 +54,16 @@ void setup()
   myGraph.calculateValuePairs(aVals[0]); // calculate locations on first curve
   slides = new Slideshow();
   bg = color(0);
-  
 }
 
 void draw()
 {
   background(bg);
+  if(mouseP) {
+    for(int i = 0; i<5; i++ ) {
+    dots.add(new Dot(mouseX+random(-10,10),mouseY+random(-10,10),myMixer.mixColors(mix)));
+    }
+  }
   
   // check to see if timeLimit has passed, 
   // if it has then switch to next "a" value in aVals[]
@@ -120,53 +125,44 @@ void draw()
 }
 
 void mousePressed() {
-  for(int i = 0; i<5; i++) {
-    dots.add(new Dot(mouseX+random(-50,50),mouseY+random(-50,50),myMixer.mixColors(mix)));
-   // tones.rate(1.625);
-   // tones.play();
-  }
+    mouseP = !mouseP;
+    //dots.add(new Dot(mouseX+random(-50,50),mouseY+random(-50,50),myMixer.mixColors(mix)));
+    //tones.rate(1.625); tones.play(); 
 }
 
 void keyPressed()
 {
   if (key == 'a' || key == '1') { // 1 dot
     dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-    //tones.rate(1);
-   // tones.play();
+    tones.rate(1);  tones.play(); 
   } else if (key == 'b' || key == '2') { // 2 dots
-     // tones.rate(1.167);
-     // tones.play();
+       tones.rate(1.167);  tones.play(); 
       for (int i = 0; i<2; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'c' || key == '3') { // 3 dots
-     // tones.rate(1.333);
-     // tones.play();
+      tones.rate(1.333);  tones.play(); 
       for (int i = 0; i<3; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'd' || key == '4') { // 4 dots
-     // tones.rate(1.4166);
-     // tones.play();
+      tones.rate(1.4166);  tones.play(); 
       for (int i = 0; i<4; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
        
       }
   } else if (key == 'e' || key == '5') { // 5 dots
-     // tones.rate(1.583);
-     // tones.play();
+      tones.rate(1.583);  tones.play(); 
       for (int i = 0; i<5; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'f' || key == '6') { // 6 dots
-     // tones.rate(1.749);
-     // tones.play();
+     tones.rate(1.749);  tones.play(); 
       for (int i = 0; i<6; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       } 
   } else if (key == 'g' || key == '0') { // 10 dots
-     // tones.rate(2.666);
-     // tones.play();
+       tones.rate(2.666);  tones.play(); 
       for (int i = 0; i<10; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
@@ -180,6 +176,8 @@ void keyPressed()
     bg = color(246);
   } else if (key == 'm') { // make dots move
    moving = !moving;  
+  } else if (key == 'l') {
+    dots.clear();
   }
 } // end keyPressed()
 
