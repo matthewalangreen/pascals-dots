@@ -34,10 +34,10 @@ float tempX,tempY; // same as above
 
 
 // Timers ... this is ugly and needs cleaning... refactor to use frameCount;
-int timeLimit = 9000;  //change a values to switch to new curve
-int movingTimer = 14000; // swicthes between static and moving positions
+//int timeLimit = 9000;  //change a values to switch to new curve
+//int movingTimer = 14000; // swicthes between static and moving positions
 boolean moving = true;
-int index = 0;
+int index = 0;  // used to keep track of where we are in the aVals[] array
 
 
 // for use with slideshow that saves background images
@@ -76,26 +76,12 @@ void draw()
 {
   background(bg);
   if(mouseP) {
-    for(int i = 0; i<5; i++ ) {
+    for(int i = 0; i<20; i++ ) {
     dots.add(new Dot(mouseX+random(-10,10),mouseY+random(-10,10),myMixer.mixColors(mix)));
     }
   }
   
-  // check to see if timeLimit has passed, 
-  // if it has then switch to next "a" value in aVals[]
-  if(millis() > timeLimit ) {
-    timeLimit += 5000;
-    index++;
-    if(index > aVals.length-1) {
-     index = 0;
-    }
-    myGraph.calculateValuePairs(aVals[index]);  // recalculate all values on new curve
-  }
-  //if(millis() > movingTimer) {
-  //  movingTimer += 8000;
-  //  moving = !moving;
-  //}
-  
+
   numPairs = myGraph.valuePairsSize(); // keep track of how many coordinate pairs their are for error checking
   
   // loop through dots and draw them based on if they should be moving or not...
@@ -132,12 +118,12 @@ void draw()
     }
   }
   // debugging
-  println("Items: "+dots.size()+" Millis: "+timeLimit+ " index: "+index+ " a-value: "+aVals[index]);
- //String t = "";
- //for(int i = 0; i<slides.size(); i++) {
- // t = t+slides.slidePathAtIndex(i)+"...";
- //}
- //println(t);
+  //println("Items: "+dots.size()+ " index: "+index+ " a-value: "+aVals[index]);
+  //String t = "";
+  //for(int i = 0; i<slides.size(); i++) {
+  // t = t+slides.slidePathAtIndex(i)+"...";
+  //}
+  //println(t);
 }
 
 void mousePressed() {
@@ -199,6 +185,13 @@ void keyPressed()
    moving = !moving;  
   } else if (key == 'l') {
     dots.clear();
+  } else if (key == 'q') {
+    // switch to new curve
+    index++;
+    if(index > aVals.length-1) {
+     index = 0;
+    }
+    myGraph.calculateValuePairs(aVals[index]);  // recalculate all values on new curve
   }
 } // end keyPressed()
 
