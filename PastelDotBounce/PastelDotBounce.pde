@@ -23,6 +23,7 @@ color[] pastels = {color(194, 86, 119), color(199, 122, 159), color(178, 116, 15
 ColorMixer myMixer = new ColorMixer(pastels);
 float mix = 0.05; // 0.3 is default
 color bg; // to use with changing background colors on keyPress...
+boolean isBlack = true;
 
 
 // Polar graph stuff...
@@ -177,11 +178,14 @@ void keyPressed()
     slides.addSlide();
   } else if (key == 'r') { // set random mixed color background
     bg = myMixer.randomColor();
-  } else if (key == 't' ) { // make background black
-    bg = color(0,0,0);
-  } else if (key == 'y') { // make background offwhite
-    bg = color(246);
-  } else if (key == 'm') { // make dots move
+  } else if (key == 't' ) { // toggle black/white bg
+    isBlack = !isBlack;
+    if (isBlack) {
+      bg = color(0);
+    } else {
+      bg = color(246);
+    }
+  }  else if (key == 'm') { // make dots move
    moving = !moving;  
   } else if (key == 'l') {
     dots.clear();
