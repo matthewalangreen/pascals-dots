@@ -3,8 +3,10 @@ import java.util.Iterator; // for keeping track of dots as they die
 
 // sound stuff
 import ddf.minim.*;
+import ddf.minim.effects.*;
 Minim minim;
-AudioSample crash,bass,cowbell;
+AudioSample first,two,three,four,five,six,ten;
+AudioPlayer drums;
 
 
 // Dot Instances
@@ -50,9 +52,14 @@ void setup()
   //tones = new SoundFile(this,"edm_conv.mp3");
   minim = new Minim(this);
   //tune = minim.loadSample("data/edm_conv.mp3", 1024);
-  crash = minim.loadSample("data/crash.mp3",128);
-  bass = minim.loadSample("data/bass.mp3", 128);
-  cowbell = minim.loadSample("data/cowbell.mp3",128);
+  first = minim.loadSample("data/chords/2.mp3",128);
+  two = minim.loadSample("data/chords/3.mp3",128);
+  three = minim.loadSample("data/chords/4.mp3",128);
+  four = minim.loadSample("data/chords/6.mp3",128);
+  five = minim.loadSample("data/chords/7.mp3",128);
+  six = minim.loadSample("data/chords/8.mp3",128);
+  ten = minim.loadSample("data/chords/9.mp3",128);
+  drums = minim.loadFile("data/bootsncats.mp3",128);
   
   fullScreen();
 
@@ -135,41 +142,48 @@ void draw()
 
 void mousePressed() {
     mouseP = !mouseP;
+   if (drums.isPlaying()){
+    drums.pause();
+   } else {
+    drums.rewind();
+    drums.loop();
+  }
 }
 
 void keyPressed()
 {
-  if (key == 'a' || key == '1') { // 1 dot
+  if (key == 'a') { // 1 dot
     dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-    crash.trigger();
-  } else if (key == 'b' || key == '2') { // 2 dots
-       bass.trigger();
+    first.trigger();
+
+  } else if (key == 'b') { // 2 dots
+       two.trigger();
       for (int i = 0; i<2; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
-  } else if (key == 'c' || key == '3') { // 3 dots
-      cowbell.trigger();
+  } else if (key == 'c') { // 3 dots
+      three.trigger();
       for (int i = 0; i<3; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
-  } else if (key == 'd' || key == '4') { // 4 dots
-      
+  } else if (key == 'd') { // 4 dots
+      four.trigger();
       for (int i = 0; i<4; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
        
       }
-  } else if (key == 'e' || key == '5') { // 5 dots
-      
+  } else if (key == 'e') { // 5 dots
+      five.trigger();
       for (int i = 0; i<5; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
-  } else if (key == 'f' || key == '6') { // 6 dots
-    
+  } else if (key == 'f') { // 6 dots
+      six.trigger();
       for (int i = 0; i<6; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       } 
-  } else if (key == 'g' || key == '0') { // 10 dots
-       
+  } else if (key == 'g') { // 10 dots
+      ten.trigger();
       for (int i = 0; i<10; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
