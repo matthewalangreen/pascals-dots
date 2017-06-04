@@ -4,7 +4,7 @@ import java.util.Iterator; // for keeping track of dots as they die
 // sound stuff
 import ddf.minim.*;
 Minim minim;
-AudioSample tune;
+AudioSample crash,bass,cowbell;
 
 
 // Dot Instances
@@ -49,7 +49,10 @@ void setup()
 {
   //tones = new SoundFile(this,"edm_conv.mp3");
   minim = new Minim(this);
-  tune = minim.loadSample("data/edm_conv.mp3", 1024);
+  //tune = minim.loadSample("data/edm_conv.mp3", 1024);
+  crash = minim.loadSample("data/crash.mp3",128);
+  bass = minim.loadSample("data/bass.mp3", 128);
+  cowbell = minim.loadSample("data/cowbell.mp3",128);
   
   fullScreen();
 
@@ -138,14 +141,14 @@ void keyPressed()
 {
   if (key == 'a' || key == '1') { // 1 dot
     dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-    tune.trigger();
+    crash.trigger();
   } else if (key == 'b' || key == '2') { // 2 dots
-       tune.trigger();
+       bass.trigger();
       for (int i = 0; i<2; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'c' || key == '3') { // 3 dots
-      tune.trigger();
+      cowbell.trigger();
       for (int i = 0; i<3; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
