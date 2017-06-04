@@ -604,7 +604,7 @@ class Slideshow
    return slides.get(index); 
   }
   
-  int size() {
+  int size() { 
     return slides.size(); 
   }
   
