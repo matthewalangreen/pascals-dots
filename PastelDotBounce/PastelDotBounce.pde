@@ -1,7 +1,11 @@
 // ****************** Header ************************ //
 import java.util.Iterator; // for keeping track of dots as they die
-import processing.sound.*;
-SoundFile tones;
+
+// sound stuff
+import ddf.minim.*;
+Minim minim;
+AudioSample tune;
+
 
 // Dot Instances
 ArrayList<Dot> dots = new ArrayList<Dot>();
@@ -43,7 +47,9 @@ boolean mouseP = false;
 
 void setup()
 {
-  tones = new SoundFile(this,"edm_conv.mp3");
+  //tones = new SoundFile(this,"edm_conv.mp3");
+  minim = new Minim(this);
+  tune = minim.loadSample("data/edm_conv.mp3", 1024);
   
   fullScreen();
 
@@ -126,43 +132,41 @@ void draw()
 
 void mousePressed() {
     mouseP = !mouseP;
-    //dots.add(new Dot(mouseX+random(-50,50),mouseY+random(-50,50),myMixer.mixColors(mix)));
-    //tones.rate(1.625); tones.play(); 
 }
 
 void keyPressed()
 {
   if (key == 'a' || key == '1') { // 1 dot
     dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-    tones.rate(1);  tones.play(); 
+    tune.trigger();
   } else if (key == 'b' || key == '2') { // 2 dots
-       tones.rate(1.167);  tones.play(); 
+       tune.trigger();
       for (int i = 0; i<2; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'c' || key == '3') { // 3 dots
-      tones.rate(1.333);  tones.play(); 
+      tune.trigger();
       for (int i = 0; i<3; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'd' || key == '4') { // 4 dots
-      tones.rate(1.4166);  tones.play(); 
+      
       for (int i = 0; i<4; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
        
       }
   } else if (key == 'e' || key == '5') { // 5 dots
-      tones.rate(1.583);  tones.play(); 
+      
       for (int i = 0; i<5; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
   } else if (key == 'f' || key == '6') { // 6 dots
-     tones.rate(1.749);  tones.play(); 
+    
       for (int i = 0; i<6; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       } 
   } else if (key == 'g' || key == '0') { // 10 dots
-       tones.rate(2.666);  tones.play(); 
+       
       for (int i = 0; i<10; i++) {
         dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
       }
