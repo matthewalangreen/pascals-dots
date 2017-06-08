@@ -77,16 +77,22 @@ void keyPressed()
     keys[18] = true; makeDots(10); ten.trigger();
   } 
   
-  // get new curve
-  if (key == 'v') { 
-    keys[21] = true; 
-    // switch to new curve
-    index++;
-    if(index > aVals.length-1) {
-     index = 0;
-    }
-    myGraph.calculateValuePairs(aVals[index]); 
-  } 
+  // get next curve
+  //if (key == 'v') { 
+  //  keys[21] = true; 
+  //  // switch to new curve
+  //  aValsIndex++;
+  //  if(aValsIndex > aVals.length-1) {
+  //   aValsIndex = 0;
+  //  }
+  //  myGraph.calculateValuePairs(aVals[aValsIndex]); 
+  //} 
+  
+  // get random curve
+  if(key == 'v') {
+    int t = (int)random(0,aVals.length-1);
+    myGraph.calculateValuePairs(aVals[t]);
+  }
   
   // black/white toggle background color
   if (key == 'w') { 

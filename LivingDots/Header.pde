@@ -68,8 +68,8 @@ float tempX,tempY; // same as above
 // Timers ... this is ugly and needs cleaning... refactor to use frameCount;
 //int timeLimit = 9000;  //change a values to switch to new curve
 //int movingTimer = 14000; // swicthes between static and moving positions
-boolean moving = true;
-int index = 0;  // used to keep track of where we are in the aVals[] array
+boolean moving = false;
+int aValsIndex = 0;  // used to keep track of where we are in the aVals[] array
 
 
 // for use with slideshow that saves background images
