@@ -35,7 +35,6 @@ import ddf.minim.*;
 import ddf.minim.effects.*;
 Minim minim;
 AudioSample first,two,three,four,five,six,ten;
-AudioPlayer drums;
 
 
 // Dot Instances
@@ -83,15 +82,23 @@ void setup()
   
   minim = new Minim(this);
  
-  first = minim.loadSample("data/chords/2.mp3",256);
-  two = minim.loadSample("data/chords/3.mp3",256);
-  three = minim.loadSample("data/chords/4.mp3",256);
-  four = minim.loadSample("data/chords/6.mp3",256);
-  five = minim.loadSample("data/chords/7.mp3",256);
-  six = minim.loadSample("data/chords/8.mp3",256);
-  ten = minim.loadSample("data/chords/9.mp3",256);
-  drums = minim.loadFile("data/bootsncats.mp3",256);
+  //first = minim.loadSample("data/chords/2.mp3",256);
+  //two = minim.loadSample("data/chords/3.mp3",256);
+  //three = minim.loadSample("data/chords/4.mp3",256);
+  //four = minim.loadSample("data/chords/6.mp3",256);
+  //five = minim.loadSample("data/chords/7.mp3",256);
+  //six = minim.loadSample("data/chords/8.mp3",256);
+  //ten = minim.loadSample("data/chords/9.mp3",256);
+  //drums = minim.loadFile("data/bootsncats.mp3",256);
   
+  first = minim.loadSample("sounds/June7/One.mp3",256);
+  two = minim.loadSample("sounds/June7/Two.mp3",256);
+  three = minim.loadSample("sounds/June7/Three.mp3",256);
+  four = minim.loadSample("sounds/June7/Four.mp3",256);
+  five = minim.loadSample("sounds/June7/Five.mp3",256);
+  six = minim.loadSample("sounds/June7/Six.mp3",256);
+  ten = minim.loadSample("sounds/June7/Ten.mp3",256);
+
   fullScreen();
 
   ellipseMode(CENTER);
