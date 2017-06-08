@@ -119,7 +119,8 @@ void keyPressed()
   if (key == 'z') { 
     keys[25] = true;  
     fountainOn = !fountainOn;
-    location.update(random(width),random(height));
+    location.x = random(width);
+    location.y = random(height);
   }
   
   

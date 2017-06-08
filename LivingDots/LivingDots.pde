@@ -27,7 +27,7 @@ void setup()
    keys[i] = false; 
   }
   
-  location = new CoordinatePair(random(width),random(height));
+  location = new PVector(random(width),random(height));
 }
 
 void draw()
@@ -47,7 +47,7 @@ void draw()
   background(bg);
   if(fountainOn) {
     for(int i = 0; i<5; i++ ) {
-    dots.add(new Dot(location.getX(),location.getY(),myMixer.mixColors(mix)));
+    dots.add(new Dot(location.x,location.y,myMixer.mixColors(mix)));
     }
   }
   

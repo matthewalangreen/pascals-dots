@@ -42,7 +42,7 @@ boolean[] keys;
 // Dot Instances
 ArrayList<Dot> dots = new ArrayList<Dot>();
 Dot cDot;
-CoordinatePair location;
+PVector location;
 
 // Color Stuff
 color[] pastels = {color(194, 86, 119), color(199, 122, 159), color(178, 116, 158), 
