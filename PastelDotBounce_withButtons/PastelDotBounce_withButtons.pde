@@ -75,7 +75,7 @@ int index = 0;  // used to keep track of where we are in the aVals[] array
 Slideshow slides;
 
 // for drawing mode
-boolean mouseP = false;
+boolean fountainOn = false;
 // ******************  End Of Header ************************ //
 
 void setup()
@@ -83,14 +83,14 @@ void setup()
   
   minim = new Minim(this);
  
-  first = minim.loadSample("data/chords/2.mp3",128);
-  two = minim.loadSample("data/chords/3.mp3",128);
-  three = minim.loadSample("data/chords/4.mp3",128);
-  four = minim.loadSample("data/chords/6.mp3",128);
-  five = minim.loadSample("data/chords/7.mp3",128);
-  six = minim.loadSample("data/chords/8.mp3",128);
-  ten = minim.loadSample("data/chords/9.mp3",128);
-  drums = minim.loadFile("data/bootsncats.mp3",128);
+  first = minim.loadSample("data/chords/2.mp3",256);
+  two = minim.loadSample("data/chords/3.mp3",256);
+  three = minim.loadSample("data/chords/4.mp3",256);
+  four = minim.loadSample("data/chords/6.mp3",256);
+  five = minim.loadSample("data/chords/7.mp3",256);
+  six = minim.loadSample("data/chords/8.mp3",256);
+  ten = minim.loadSample("data/chords/9.mp3",256);
+  drums = minim.loadFile("data/bootsncats.mp3",256);
   
   fullScreen();
 
@@ -126,7 +126,7 @@ void draw()
   }
   
   background(bg);
-  if(mouseP) {
+  if(fountainOn) {
     for(int i = 0; i<5; i++ ) {
     dots.add(new Dot(location.getX(),location.getY(),myMixer.mixColors(mix)));
     }
@@ -189,13 +189,13 @@ void makeDots(int num) {
 
 
 void mousePressed() {
-    //mouseP = !mouseP;
-   if (drums.isPlaying()){
-    drums.pause();
-   } else {
-    drums.rewind();
-    drums.loop();
-  }
+    //fountainOn = !fountainon;
+   //if (drums.isPlaying()){
+   // drums.pause();
+   //} else {
+   // drums.rewind();
+   // drums.loop();
+ // }
 }
 
 void keyPressed()
@@ -312,11 +312,10 @@ void keyPressed()
   // fountain
   if (key == 'z') { 
     keys[25] = true;  
-    mouseP = !mouseP;
+    fountainOn = !fountainOn;
     location.update(random(width),random(height));
   }
   
-  // need a screenshot key!
   
 } // end keyPressed()
 

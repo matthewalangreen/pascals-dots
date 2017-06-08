@@ -12,7 +12,7 @@ boolean[] keys;
  void draw() 
  {
    background(246);
-   if (keys[0] && keys[1] && keys[2] && keys[3] && keys[4] && keys[5]) 
+   if (keys[0] && keys[1] && keys[2]) 
    {
      background(0);
    }

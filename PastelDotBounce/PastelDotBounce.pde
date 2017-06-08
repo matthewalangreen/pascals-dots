@@ -1,6 +1,35 @@
 // ****************** Header ************************ //
 import java.util.Iterator; // for keeping track of dots as they die
 
+
+// Key press stuff **************************** //
+boolean[] keys;
+// A  0      J  9       S  18  
+// B  1      K  10      T  19
+// C  2      L  11      U  20  
+// D  3      M  12      V  21
+// E  4      N  13      W  22
+// F  5      O  14      X  23  
+// G  6      P  15      Y  24  
+// H  7      Q  16      Z  25
+// I  8      R  17  
+
+//            A
+//          B   C
+//        D   E   F
+//      G   H   I   J
+//    K   L   M   N   O
+//  P   Q   R   S   T   U
+            
+            
+//            0
+//          1   2
+//        3   4   5
+//      6   7   8   9
+//    10  11  12  13  14
+//  15  16  17  18  19  20
+// end key press stuff *********************** //
+
 // sound stuff
 import ddf.minim.*;
 import ddf.minim.effects.*;
@@ -12,6 +41,7 @@ AudioPlayer drums;
 // Dot Instances
 ArrayList<Dot> dots = new ArrayList<Dot>();
 Dot cDot;
+CoordinatePair location;
 
 // Color Stuff
 color[] pastels = {color(194, 86, 119), color(199, 122, 159), color(178, 116, 158), 
@@ -50,9 +80,9 @@ boolean mouseP = false;
 
 void setup()
 {
-  //tones = new SoundFile(this,"edm_conv.mp3");
+  
   minim = new Minim(this);
-  //tune = minim.loadSample("data/edm_conv.mp3", 1024);
+ 
   first = minim.loadSample("data/chords/2.mp3",128);
   two = minim.loadSample("data/chords/3.mp3",128);
   three = minim.loadSample("data/chords/4.mp3",128);
@@ -71,14 +101,34 @@ void setup()
   myGraph.calculateValuePairs(aVals[0]); // calculate locations on first curve
   slides = new Slideshow();
   bg = color(0);
+  
+  // boolean array to manage simultaneous key presses
+  keys = new boolean[26];
+  for(int i = 0; i<keys.length; i++) {
+   keys[i] = false; 
+  }
+  
+  location = new CoordinatePair(random(width),random(height));
 }
 
 void draw()
 {
+  // multiple key press conditions
+  
+  // clear all on a & p & u
+  if(keys[0] && keys[15] && keys[20]) {
+   dots.clear();
+  }
+  
+  // make dots move
+  if(keys[0] && keys[1] && keys[2]) {
+    moving = !moving;
+  }
+  
   background(bg);
   if(mouseP) {
-    for(int i = 0; i<20; i++ ) {
-    dots.add(new Dot(mouseX+random(-10,10),mouseY+random(-10,10),myMixer.mixColors(mix)));
+    for(int i = 0; i<5; i++ ) {
+    dots.add(new Dot(location.getX(),location.getY(),myMixer.mixColors(mix)));
     }
   }
   
@@ -127,8 +177,19 @@ void draw()
   //println(t);
 }
 
+void makeDot() {
+   dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
+}
+
+void makeDots(int num) {
+  for(int i = 0; i<num; i++) {
+    makeDot();
+  }
+}
+
+
 void mousePressed() {
-    mouseP = !mouseP;
+    //mouseP = !mouseP;
    if (drums.isPlaying()){
     drums.pause();
    } else {
@@ -139,65 +200,206 @@ void mousePressed() {
 
 void keyPressed()
 {
-  if (key == 'a') { // 1 dot
-    dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-    first.trigger();
-
-  } else if (key == 'b') { // 2 dots
-       two.trigger();
-      for (int i = 0; i<2; i++) {
-        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-      }
-  } else if (key == 'c') { // 3 dots
-      three.trigger();
-      for (int i = 0; i<3; i++) {
-        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-      }
-  } else if (key == 'd') { // 4 dots
-      four.trigger();
-      for (int i = 0; i<4; i++) {
-        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-       
-      }
-  } else if (key == 'e') { // 5 dots
-      five.trigger();
-      for (int i = 0; i<5; i++) {
-        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-      }
-  } else if (key == 'f') { // 6 dots
-      six.trigger();
-      for (int i = 0; i<6; i++) {
-        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-      } 
-  } else if (key == 'g') { // 10 dots
-      ten.trigger();
-      for (int i = 0; i<10; i++) {
-        dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
-      }
-  } else if (key == 'p') { // take screenshot 'n stuff
-    slides.addSlide();
-  } else if (key == 'r') { // set random mixed color background
-    bg = myMixer.randomColor();
-  } else if (key == 't' ) { // toggle black/white bg
+  // 1 dot keys... there are lots!
+  if (key == 'a') { 
+    keys[0] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'b') { 
+    keys[1] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'c') { 
+    keys[2] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'd') { 
+    keys[3] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'f') { 
+    keys[5] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'g') { 
+    keys[6] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'j') { 
+    keys[9] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'k') { 
+    keys[10] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'o') { 
+    keys[14] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'p') { 
+    keys[15] = true; makeDot(); first.trigger();
+  } 
+  if (key == 'u') { 
+    keys[20] = true; makeDot(); first.trigger();
+  }  // end of 1 dot makers
+  
+  // 2 dots
+  if (key == 'e') { 
+    keys[4] = true; makeDots(2); two.trigger();
+  } 
+  
+  // 3 dots
+   if (key == 'h') { 
+    keys[7] = true; makeDots(3); three.trigger();
+  } 
+  if (key == 'i') { 
+    keys[8] = true; makeDots(3); three.trigger();
+  } 
+  
+  // 4 dots
+  if (key == 'l') { 
+    keys[11] = true; makeDots(4); four.trigger();
+  } 
+  if (key == 'n') { 
+    keys[13] = true; makeDots(4); four.trigger();
+  } 
+  
+  // 5 dots
+  if (key == 'q') { 
+    keys[16] = true; makeDots(5); five.trigger();
+  } 
+  if (key == 't') { 
+    keys[19] = true; makeDots(5); five.trigger();
+  }
+  
+  // 6 dots
+  if (key == 'm') { 
+    keys[12] = true; makeDots(6); six.trigger();
+  } 
+  
+  // 10 dots
+  if (key == 'r') { 
+    keys[17] = true; makeDots(10); ten.trigger();
+  } 
+  if (key == 's') { 
+    keys[18] = true; makeDots(10); ten.trigger();
+  } 
+  
+  // get new curve
+  if (key == 'v') { 
+    keys[21] = true; 
+    // switch to new curve
+    index++;
+    if(index > aVals.length-1) {
+     index = 0;
+    }
+    myGraph.calculateValuePairs(aVals[index]); 
+  } 
+  
+  // black/white toggle background color
+  if (key == 'w') { 
+    keys[22] = true;
     isBlack = !isBlack;
     if (isBlack) {
       bg = color(0);
     } else {
       bg = color(246);
     }
-  }  else if (key == 'm') { // make dots move
-   moving = !moving;  
-  } else if (key == 'l') {
-    dots.clear();
-  } else if (key == 'q') {
-    // switch to new curve
-    index++;
-    if(index > aVals.length-1) {
-     index = 0;
-    }
-    myGraph.calculateValuePairs(aVals[index]);  // recalculate all values on new curve
+  } 
+  
+  // random background color
+   if (key == 'x') { 
+    keys[23] = true; bg = myMixer.randomColor();
   }
+  
+  // screenshot
+  if (key == 'y') { 
+    keys[24] = true; slides.addSlide();
+  } 
+  
+  // fountain
+  if (key == 'z') { 
+    keys[25] = true;  
+    mouseP = !mouseP;
+    location.update(random(width),random(height));
+  }
+  
+  // need a screenshot key!
+  
 } // end keyPressed()
+
+void keyReleased() {
+  if (key == 'a') {
+    keys[0] = false;
+  }
+  if (key == 'b') { 
+    keys[1] = false;
+  } 
+  if (key == 'c') { 
+    keys[2] = false;
+  } 
+  if (key == 'd') { 
+    keys[3] = false;
+  } 
+  if (key == 'e') { 
+    keys[4] = false;
+  } 
+  if (key == 'f') { 
+    keys[5] = false;
+  } 
+  if (key == 'g') { 
+    keys[6] = false;
+  } 
+  if (key == 'h') { 
+    keys[7] = false;
+  } 
+  if (key == 'i') { 
+    keys[8] = false;
+  } 
+  if (key == 'j') { 
+    keys[9] = false;
+  } 
+  if (key == 'k') { 
+    keys[10] = false;
+  } 
+  if (key == 'l') { 
+    keys[11] = false;
+  } 
+  if (key == 'm') { 
+    keys[12] = false;
+  } 
+  if (key == 'n') { 
+    keys[13] = false;
+  } 
+  if (key == 'o') { 
+    keys[14] = false;
+  } 
+  if (key == 'p') { 
+    keys[15] = false;
+  } 
+  if (key == 'q') { 
+    keys[16] = false;
+  } 
+  if (key == 'r') { 
+    keys[17] = false;
+  } 
+  if (key == 's') { 
+    keys[18] = false;
+  } 
+  if (key == 't') { 
+    keys[19] = false;
+  } 
+  if (key == 'u') { 
+    keys[20] = false;
+  } 
+  if (key == 'v') { 
+    keys[21] = false;
+  } 
+  if (key == 'w') { 
+    keys[22] = false;
+  } 
+  if (key == 'x') { 
+    keys[23] = false;
+  } 
+  if (key == 'y') { 
+    keys[24] = false;
+  } 
+  if (key == 'z') { 
+    keys[25] = false;
+  } 
+}
 
 // *************** ColorMixer Class ************************* //
 // ColorMixer Class Definition
@@ -302,6 +504,11 @@ class CoordinatePair
   
   // constructor 
   CoordinatePair(float _x, float _y) {
+    x = _x;
+    y = _y;
+  }
+  
+  void update(float _x, float _y) {
     x = _x;
     y = _y;
   }
