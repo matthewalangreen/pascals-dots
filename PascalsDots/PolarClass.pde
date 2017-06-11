@@ -31,7 +31,6 @@ class PolarGraph
   // methods
   void calculateValuePairs(float val) {
     valueVectors.clear();
-    //valuePairs.clear();
     for(float i = 0; i<30*PI; i+=increment) {
       float tx = size*sin(-val*i)*cos(i) + width/2;
       float ty = size*sin(-val*i)*sin(i) + height/2;
@@ -53,12 +52,12 @@ class PolarGraph
   
   // ***********************************************
   
-  
-  void update() {
-   r = size * sin(-a*theta);
-   theta += increment; 
-   xPos = r * cos(theta) + width/2;
-   yPos = r * sin(theta) + height/2;
-  }
+  // deprecated
+  //void update() {        
+  // r = size * sin(-a*theta);
+  // theta += increment; 
+  // xPos = r * cos(theta) + width/2;
+  // yPos = r * sin(theta) + height/2;
+  //}
   
 } // End of polar class
