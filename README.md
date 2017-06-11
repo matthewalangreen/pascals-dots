@@ -40,7 +40,7 @@ On the left you’ll see the keys and on the right their corresponding positions
 - a & p & u - clear all dots from screen and remove from memory
 
 ## Contributing
-Contributing: Larger projects often have sections on contributing to their project, in which contribution instructions are outlined. Sometimes, this is a separate file. If you have specific contribution preferences, explain them so that other developers know how to best contribute to your work. To learn more about how to help others contribute, check out the guide for (setting guidelines for repository contributors)[https://help.github.com/articles/setting-guidelines-for-repository-contributors/].
+I'd beyond excited if you'd be interested in contributing to this project.  I don't have any guidelines at this point.  Just send me a pull request.
 
 ## Credits
 Carl Richardson - Thank you for the invitation to share in your work.  I’m honored to be part of your show.  Also, I think the orange is growing on me.
@@ -49,7 +49,7 @@ Brook Gannon - Thanks for the killer sounds and your patience with my demanding 
 
 Riverpoint Academy Students - Anna, Lexi and Taylor.  Thank you for your curiosity, passion and hard work. I’m glad to have had your participation in this project, I can’t wait to see what you do next!
 
-A special thank you to @shiffman for writing [Nature of Code](http://natureofcode.com)  Your chapters on Vectors, Particle Systems and Autonomous Agents enabled me to create something with simple rules that creates engaging visuals that feel to me to perfectly balance chaos and predictability.  I’m so excited with how it turned out and I’m grateful to you for laying such a beautiful foundation on which I could build.
+A special thank you to [@shiffman](https://github.com/shiffman) for writing [Nature of Code](http://natureofcode.com)  Your chapters on Vectors, Particle Systems and Autonomous Agents enabled me to create something with simple rules that creates engaging visuals that feel to me to perfectly balance chaos and predictability.  I’m so excited with how it turned out and I’m grateful to you for laying such a beautiful foundation on which I could build.
 
 ## License
 [Attribution ShareAlike 3.0 United States (CC BY-SA 3.0 US)](https://creativecommons.org/licenses/by-sa/3.0/us/)
