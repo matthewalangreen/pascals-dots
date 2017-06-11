@@ -21,12 +21,12 @@ A no-audio version is available on: openprocessing.org: [Pascal’s Dots - OpenP
 ## Usage
 All keys are mapped to lowercase alpha keys on a standard English keyboard.  Anna used a [Teensy 3.6](https://www.pjrc.com/store/teensy36.html) to build a custom USB controller which consists of twenty-one arcade buttons arrayed in a triangle.  Each button emulates a key on the keyboard in the following layout:
 
-		            a                                                    1
-		         b   c                                               1    1
-  		       d   e   f                                         1    2    1
- 		     g   h   I    j                                     1   3    3    1
- 		  k   l   m   n   o                              1   4    6    4    1
-                p   q   r   s   t   u                         1   5   10   10   5   1
+		           a                                                   1
+		         b   c                                               1   1
+  		       d   e   f                                           1   2   1
+ 		     g   h   i   j                                       1   3   3   1
+ 		   k   l   m   n  o                                    1   4   6   4   1
+                 p   q   r   s   t  u                                1   5  10   10  5   1
 
 On the left you’ll see the keys and on the right their corresponding positions in Pascal’s Triangle.  Each key pressed creates the corresponding quantity of dots on screen in addition to the corresponding note in the scale, with 10 being the 1 in the next octave.
 
