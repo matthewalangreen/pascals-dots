@@ -11,7 +11,7 @@ void setup()
   six = minim.loadSample("sounds/June7/Six.mp3",256);
   ten = minim.loadSample("sounds/June7/Ten.mp3",256);
 
-  fullScreen();
+  fullScreen(); 
 
   ellipseMode(CENTER);
   //size(1024, 768);
@@ -75,7 +75,7 @@ void draw()
     // draw update their positions and draw them to the screen
     cDot.update();
     cDot.display();
-    myGraph.update();
+    // myGraph.update();
   }  // end of dots loop
  
   // Check to see if dots are alive.  Remove the dead ones.
