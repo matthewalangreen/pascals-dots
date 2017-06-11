@@ -30,18 +30,13 @@ boolean[] keys;
 //  15  16  17  18  19  20
 // end key press stuff *********************** //
 
-// sound stuff
-import ddf.minim.*;
-import ddf.minim.effects.*;
-Minim minim;
-AudioSample first,two,three,four,five,six,ten;
-AudioPlayer drums;
+
 
 
 // Dot Instances
 ArrayList<Dot> dots = new ArrayList<Dot>();
 Dot cDot;
-CoordinatePair location;
+PVector location;
 
 // Color Stuff
 color[] pastels = {color(194, 86, 119), color(199, 122, 159), color(178, 116, 158), 
@@ -67,31 +62,19 @@ float tempX,tempY; // same as above
 // Timers ... this is ugly and needs cleaning... refactor to use frameCount;
 //int timeLimit = 9000;  //change a values to switch to new curve
 //int movingTimer = 14000; // swicthes between static and moving positions
-boolean moving = true;
-int index = 0;  // used to keep track of where we are in the aVals[] array
+boolean moving = false;
+int aValsIndex = 0;  // used to keep track of where we are in the aVals[] array
 
 
 // for use with slideshow that saves background images
 Slideshow slides;
 
 // for drawing mode
-boolean mouseP = false;
+boolean fountainOn = false;
 // ******************  End Of Header ************************ //
 
 void setup()
 {
-  
-  minim = new Minim(this);
- 
-  first = minim.loadSample("data/chords/2.mp3",128);
-  two = minim.loadSample("data/chords/3.mp3",128);
-  three = minim.loadSample("data/chords/4.mp3",128);
-  four = minim.loadSample("data/chords/6.mp3",128);
-  five = minim.loadSample("data/chords/7.mp3",128);
-  six = minim.loadSample("data/chords/8.mp3",128);
-  ten = minim.loadSample("data/chords/9.mp3",128);
-  drums = minim.loadFile("data/bootsncats.mp3",128);
-  
   fullScreen();
 
   ellipseMode(CENTER);
@@ -108,7 +91,7 @@ void setup()
    keys[i] = false; 
   }
   
-  location = new CoordinatePair(random(width),random(height));
+  location = new PVector(random(width),random(height));
 }
 
 void draw()
@@ -120,15 +103,15 @@ void draw()
    dots.clear();
   }
   
-  // make dots move
+  // make dots move on a & b & c
   if(keys[0] && keys[1] && keys[2]) {
     moving = !moving;
   }
   
   background(bg);
-  if(mouseP) {
+  if(fountainOn) {
     for(int i = 0; i<5; i++ ) {
-    dots.add(new Dot(location.getX(),location.getY(),myMixer.mixColors(mix)));
+    dots.add(new Dot(location.x,location.y,myMixer.mixColors(mix)));
     }
   }
   
@@ -177,6 +160,7 @@ void draw()
   //println(t);
 }
 
+// helper functions
 void makeDot() {
    dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
 }
@@ -188,105 +172,91 @@ void makeDots(int num) {
 }
 
 
-void mousePressed() {
-    //mouseP = !mouseP;
-   if (drums.isPlaying()){
-    drums.pause();
-   } else {
-    drums.rewind();
-    drums.loop();
-  }
-}
-
 void keyPressed()
 {
   // 1 dot keys... there are lots!
   if (key == 'a') { 
-    keys[0] = true; makeDot(); first.trigger();
+    keys[0] = true; makeDot(); 
   } 
   if (key == 'b') { 
-    keys[1] = true; makeDot(); first.trigger();
+    keys[1] = true; makeDot(); 
   } 
   if (key == 'c') { 
-    keys[2] = true; makeDot(); first.trigger();
+    keys[2] = true; makeDot(); 
   } 
   if (key == 'd') { 
-    keys[3] = true; makeDot(); first.trigger();
+    keys[3] = true; makeDot(); 
   } 
   if (key == 'f') { 
-    keys[5] = true; makeDot(); first.trigger();
+    keys[5] = true; makeDot(); 
   } 
   if (key == 'g') { 
-    keys[6] = true; makeDot(); first.trigger();
+    keys[6] = true; makeDot(); 
   } 
   if (key == 'j') { 
-    keys[9] = true; makeDot(); first.trigger();
+    keys[9] = true; makeDot(); 
   } 
   if (key == 'k') { 
-    keys[10] = true; makeDot(); first.trigger();
+    keys[10] = true; makeDot(); 
   } 
   if (key == 'o') { 
-    keys[14] = true; makeDot(); first.trigger();
+    keys[14] = true; makeDot(); 
   } 
   if (key == 'p') { 
-    keys[15] = true; makeDot(); first.trigger();
+    keys[15] = true; makeDot(); 
   } 
   if (key == 'u') { 
-    keys[20] = true; makeDot(); first.trigger();
+    keys[20] = true; makeDot(); 
   }  // end of 1 dot makers
   
   // 2 dots
   if (key == 'e') { 
-    keys[4] = true; makeDots(2); two.trigger();
+    keys[4] = true; makeDots(2); 
   } 
   
   // 3 dots
    if (key == 'h') { 
-    keys[7] = true; makeDots(3); three.trigger();
+    keys[7] = true; makeDots(3); 
   } 
   if (key == 'i') { 
-    keys[8] = true; makeDots(3); three.trigger();
+    keys[8] = true; makeDots(3); 
   } 
   
   // 4 dots
   if (key == 'l') { 
-    keys[11] = true; makeDots(4); four.trigger();
+    keys[11] = true; makeDots(4); 
   } 
   if (key == 'n') { 
-    keys[13] = true; makeDots(4); four.trigger();
+    keys[13] = true; makeDots(4); 
   } 
   
   // 5 dots
   if (key == 'q') { 
-    keys[16] = true; makeDots(5); five.trigger();
+    keys[16] = true; makeDots(5); 
   } 
   if (key == 't') { 
-    keys[19] = true; makeDots(5); five.trigger();
+    keys[19] = true; makeDots(5); 
   }
   
   // 6 dots
   if (key == 'm') { 
-    keys[12] = true; makeDots(6); six.trigger();
+    keys[12] = true; makeDots(6); 
   } 
   
   // 10 dots
   if (key == 'r') { 
-    keys[17] = true; makeDots(10); ten.trigger();
+    keys[17] = true; makeDots(10); 
   } 
   if (key == 's') { 
-    keys[18] = true; makeDots(10); ten.trigger();
+    keys[18] = true; makeDots(10); 
   } 
   
-  // get new curve
-  if (key == 'v') { 
-    keys[21] = true; 
-    // switch to new curve
-    index++;
-    if(index > aVals.length-1) {
-     index = 0;
-    }
-    myGraph.calculateValuePairs(aVals[index]); 
-  } 
+  
+  // get random curve
+  if(key == 'v') {
+    int t = (int)random(0,aVals.length-1);
+    myGraph.calculateValuePairs(aVals[t]);
+  }
   
   // black/white toggle background color
   if (key == 'w') { 
@@ -312,11 +282,11 @@ void keyPressed()
   // fountain
   if (key == 'z') { 
     keys[25] = true;  
-    mouseP = !mouseP;
-    location.update(random(width),random(height));
+    fountainOn = !fountainOn;
+    location.x = random(width);
+    location.y = random(height);
   }
   
-  // need a screenshot key!
   
 } // end keyPressed()
 
@@ -489,44 +459,7 @@ class ColorMixer
  
 
 // *************** End of ColorMixer Class ************************* //
-
-// *************** CoordinatePair Class ************************* //
-
-// CoordinatePair Class Definition
-// Version 1.1
-// Matthew Green
-// May 24, 2017
-// ***************************
-class CoordinatePair
-{
-  // data  
-  float x,y;
-  
-  // constructor 
-  CoordinatePair(float _x, float _y) {
-    x = _x;
-    y = _y;
-  }
-  
-  void update(float _x, float _y) {
-    x = _x;
-    y = _y;
-  }
-  
-  float getX() {
-   return x; 
-  }
-  
-  float getY() {
-   return y; 
-  }
-
-}// end of CoordinatePairs Class 
  
-
-// *************** End of CoordinatePair Class ************************* //
-
-// *************** Dot Class ************************* //
 
 class Dot {
   
@@ -680,21 +613,17 @@ class Dot {
   }
 }
 
-// *************** End of Dot Class ************************* //
-
-// *************** Polar Class ************************* //
-
 // PolarGraph Class Definition
-// Version 1.1
+// Version 1.2
 // Matthew Green
-// May 22, 2017
+// June 7, 2017
 // ***************************
 class PolarGraph
 {
   // data  
   float xPos,yPos,period,theta,alpha,increment,dotController,r,a,size;
   color curColor,temp;
-  ArrayList<CoordinatePair> valuePairs;
+  ArrayList<PVector> valueVectors;
   
   // ** REMEMBER **
   // r = 140*sin(-a*theta);
@@ -710,30 +639,31 @@ class PolarGraph
     dotController = 50;
     increment = period/dotController;
     size = 450;
-    valuePairs = new ArrayList<CoordinatePair>();
+    valueVectors = new ArrayList<PVector>();
     //r = 300 * sin(-a*theta);
   }
   
   // methods
   void calculateValuePairs(float val) {
-    valuePairs.clear();
+    valueVectors.clear();
+    //valuePairs.clear();
     for(float i = 0; i<30*PI; i+=increment) {
       float tx = size*sin(-val*i)*cos(i) + width/2;
       float ty = size*sin(-val*i)*sin(i) + height/2;
-      valuePairs.add(new CoordinatePair(tx,ty));
+      valueVectors.add(new PVector(tx,ty));
     }
   }
   
   float[] getValuePair(int index) {
-    if(index < valuePairs.size()) {
-      return new float[] {valuePairs.get(index).getX(),valuePairs.get(index).getY()};     
+    if(index < valueVectors.size()) {
+      return new float[] {valueVectors.get(index).x,valueVectors.get(index).y};     
     } else {
       return new float[] {-1000,1000};
     }
   }
   
   int valuePairsSize() {
-   return valuePairs.size(); 
+   return valueVectors.size();
   }
   
   // ***********************************************
@@ -741,42 +671,12 @@ class PolarGraph
   
   void update() {
    r = size * sin(-a*theta);
-   //translate(width/2,height/2);
    theta += increment; 
    xPos = r * cos(theta) + width/2;
    yPos = r * sin(theta) + height/2;
   }
   
-  
-  // ****************** Pretty sure these are all extras *************************** //
-  float randomX() {
-    float t = random(0,10*PI);
-    return size*sin(-a*t) * cos(t) + width/2;
-  }
-  
-  float randomY() {
-    float t = random(0,10*PI);
-    return size*sin(-a*t) * sin(t) + height/2;
-  }
-  
-  float x() {
-    return xPos;
-  }
-  
-  float y() {
-    return yPos;
-  }
-  
-  void changeGraph() {
-    a += .2;
-  }
-  
-  
 } // End of polar class
-
-// *************** End of Polar Class ************************* //
-
-// *************** SlideShow Class ************************* //
 
 // Slideshow Class Definition
 // Version 1.1
