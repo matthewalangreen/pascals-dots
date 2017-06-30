@@ -39,8 +39,8 @@ void draw()
    dots.clear();
   }
   
-  // make dots move on a & b & c
-  if(keys[0] && keys[1] && keys[2]) {
+  // make dots move on a & b
+  if(keys[0] && keys[1]) {
     moving = !moving;
   }
   

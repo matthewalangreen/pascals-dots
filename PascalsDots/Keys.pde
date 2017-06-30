@@ -117,10 +117,11 @@ void keyPressed()
   
   // fountain
   if (key == 'z') { 
-    keys[25] = true;  
-    fountainOn = !fountainOn;
-    location.x = random(width);
-    location.y = random(height);
+    //keys[25] = true;  
+    //fountainOn = !fountainOn;
+    //location.x = random(width);
+    //location.y = random(height);
+    moving = !moving;
   }
   
   
