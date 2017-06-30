@@ -3,6 +3,9 @@ void keyPressed()
   // 1 dot keys... there are lots!
   if (key == 'a') { 
     keys[0] = true; makeDot(); first.trigger();
+    //if(key == 'u') {
+    // keys[20] = true; makeDot(); first.trigger(); 
+    //}
   } 
   if (key == 'b') { 
     keys[1] = true; makeDot(); first.trigger();
@@ -77,6 +80,17 @@ void keyPressed()
     keys[18] = true; makeDots(10); ten.trigger();
   } 
   
+   // get random curve
+  if(key == 'v') {
+    int t = (int)random(0,aVals.length-1);
+    myGraph.calculateValuePairs(aVals[t]);
+  }
+  
+  // move not move
+  if (key == 'z') { 
+    moving = !moving;
+  }
+  
   // get next curve
   //if (key == 'v') { 
   //  keys[21] = true; 
@@ -88,41 +102,28 @@ void keyPressed()
   //  myGraph.calculateValuePairs(aVals[aValsIndex]); 
   //} 
   
-  // get random curve
-  if(key == 'v') {
-    int t = (int)random(0,aVals.length-1);
-    myGraph.calculateValuePairs(aVals[t]);
-  }
-  
   // black/white toggle background color
-  if (key == 'w') { 
-    keys[22] = true;
-    isBlack = !isBlack;
-    if (isBlack) {
-      bg = color(0);
-    } else {
-      bg = color(246);
-    }
-  } 
+  //if (key == 'w') { 
+  //  keys[22] = true;
+  //  isBlack = !isBlack;
+  //  if (isBlack) {
+  //    bg = color(0);
+  //  } else {
+  //    bg = color(246);
+  //  }
+  //} 
   
   // random background color
-   if (key == 'x') { 
-    keys[23] = true; bg = myMixer.randomColor();
-  }
+   //if (key == 'x') { 
+   // keys[23] = true; bg = myMixer.randomColor();
+  //}
   
   // screenshot
-  if (key == 'y') { 
-    keys[24] = true; slides.addSlide();
-  } 
+  //if (key == 'y') { 
+  //  keys[24] = true; slides.addSlide();
+  //} 
   
-  // fountain
-  if (key == 'z') { 
-    //keys[25] = true;  
-    //fountainOn = !fountainOn;
-    //location.x = random(width);
-    //location.y = random(height);
-    moving = !moving;
-  }
+  
   
   
 } // end keyPressed()

@@ -20,7 +20,7 @@ class Dot {
     maxForce = 1.2; // 0.4 is default
     deathRate = 0.4; // 0.8 is default
     radiusChange = 0.1; // 0.04 is default
-    lifespan = random(150,400); //100,255 is default
+    lifespan = random(300,500); //100,255 is default
     // ***********************************************************************************
     
     acceleration = new PVector(0, 0);

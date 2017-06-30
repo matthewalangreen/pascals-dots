@@ -1,3 +1,7 @@
+int time = 5000;
+int timeLimit = time;
+boolean firstRun = true;
+
 void setup()
 {
  
@@ -11,10 +15,10 @@ void setup()
   six = minim.loadSample("sounds/June7/Six.mp3",256);
   ten = minim.loadSample("sounds/June7/Ten.mp3",256);
 
-  fullScreen(); 
+  //fullScreen(); 
 
   ellipseMode(CENTER);
-  //size(1024, 768);
+  size(1024, 768);
   noStroke();
   frameRate(24); // 100 is default
   myGraph.calculateValuePairs(aVals[0]); // calculate locations on first curve
@@ -32,24 +36,44 @@ void setup()
 
 void draw()
 {
+  if(firstRun && dots.size()>4) {
+   firstRun = false; 
+   println("first run is false");
+  }
+  //timer
+  //if(millis() > timeLimit ) {
+  //  timeLimit += time;
+  //   println("curve change");
+  //   int t = (int)random(0,aVals.length-1);
+  //   myGraph.calculateValuePairs(aVals[t]);
+  //   timeLimit += time;
+  // }
+  
+  
+  // get new curve each time all dots are dead
+  if(dots.size() < 1 && !firstRun) {
+    println("curve change");
+  int t = (int)random(0,aVals.length-1);
+  myGraph.calculateValuePairs(aVals[t]);
+  }
   // multiple key press conditions
   
   // clear all on a & p & u
-  if(keys[0] && keys[15] && keys[20]) {
-   dots.clear();
-  }
+  //if(keys[0] && keys[15] && keys[20]) {
+  // dots.clear();
+  //}
   
   // make dots move on a & b
-  if(keys[0] && keys[1]) {
-    moving = !moving;
-  }
+  //if(keys[0] && keys[1]) {
+  //  moving = !moving;
+  //}
   
   background(bg);
-  if(fountainOn) {
-    for(int i = 0; i<5; i++ ) {
-    dots.add(new Dot(location.x,location.y,myMixer.mixColors(mix)));
-    }
-  }
+  //if(fountainOn) {
+  //  for(int i = 0; i<5; i++ ) {
+  //  dots.add(new Dot(location.x,location.y,myMixer.mixColors(mix)));
+  //  }
+  //}
   
 
   numPairs = myGraph.valuePairsSize(); // keep track of how many coordinate pairs their are for error checking
@@ -87,6 +111,8 @@ void draw()
       it.remove();
     }
   }
+  
+  // println("size of array: "+dots.size());
   // debugging
   //println("Items: "+dots.size()+ " index: "+index+ " a-value: "+aVals[index]);
   //String t = "";
