@@ -28,17 +28,8 @@ void draw()
 {
   if(firstRun && dots.size()>4) {
    firstRun = false; 
-   println("first run is false");
+  // println("first run is false");
   }
-  //timer
-  //if(millis() > timeLimit ) {
-  //  timeLimit += time;
-  //   println("curve change");
-  //   int t = (int)random(0,aVals.length-1);
-  //   myGraph.calculateValuePairs(aVals[t]);
-  //   timeLimit += time;
-  // }
-  
   
   // get new curve each time all dots are dead
   if(dots.size() < 1 && !firstRun) {
@@ -46,9 +37,9 @@ void draw()
   int t = (int)random(0,aVals.length-1);
   myGraph.calculateValuePairs(aVals[t]);
   }
-  // multiple key press conditions
   
- //  clear all on a & p & u
+  // multiple key press conditions
+  //  clear all on a & p & u
   if(keys[0] && keys[15] && keys[20]) {
    dots.clear();
   }
@@ -59,12 +50,7 @@ void draw()
   }
   
   background(bg);
-  //if(fountainOn) {
-  //  for(int i = 0; i<5; i++ ) {
-  //  dots.add(new Dot(location.x,location.y,myMixer.mixColors(mix)));
-  //  }
-  //}
-  
+ 
 
   numPairs = myGraph.valuePairsSize(); // keep track of how many coordinate pairs their are for error checking
   
@@ -102,14 +88,6 @@ void draw()
     }
   }
   
-  // println("size of array: "+dots.size());
-  // debugging
-  //println("Items: "+dots.size()+ " index: "+index+ " a-value: "+aVals[index]);
-  //String t = "";
-  //for(int i = 0; i<slides.size(); i++) {
-  // t = t+slides.slidePathAtIndex(i)+"...";
-  //}
-  //println(t);
 }
 
 // helper functions

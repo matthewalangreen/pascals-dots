@@ -49,15 +49,5 @@ class PolarGraph
   int valuePairsSize() {
    return valueVectors.size();
   }
-  
-  // ***********************************************
-  
-  // deprecated
-  //void update() {        
-  // r = size * sin(-a*theta);
-  // theta += increment; 
-  // xPos = r * cos(theta) + width/2;
-  // yPos = r * sin(theta) + height/2;
-  //}
-  
+    
 } // End of polar class
