@@ -2,13 +2,19 @@ int time = 5000;
 int timeLimit = time;
 boolean firstRun = true;
 
+void testColors() {
+ for(int i = 0; i<pastels.length; i++) {
+   makeDotAt(100, 100 + 40 * i, pastels[i]);
+ }
+}
+
 void setup()
 {
 
-  fullScreen(); 
+  //fullScreen(); 
 
   ellipseMode(CENTER);
-  //size(1024, 768);
+  size(1024, 768);
   noStroke();
   frameRate(24); // 100 is default
   myGraph.calculateValuePairs(aVals[0]); // calculate locations on first curve
@@ -22,6 +28,8 @@ void setup()
   }
   
   location = new PVector(random(width),random(height));
+  
+  testColors();
 }
 
 void draw()
@@ -93,6 +101,10 @@ void draw()
 // helper functions
 void makeDot() {
    dots.add(new Dot(random(width), random(height), myMixer.mixColors(mix)));
+}
+
+void makeDotAt(float x, float y, color c) {
+ dots.add(new Dot(x, y, c));
 }
 
 void makeDots(int num) {
